@@ -5,8 +5,8 @@
 
 class Warehouse {
     public:
-        Warehouse() : sessions(nullptr) {}
-        Warehouse(int id) : w_id(id) {}
+        Warehouse() : w_id(-1), sessions(nullptr) {}
+        Warehouse(int id) : w_id(id), sessions(nullptr) {}
 
         ~Warehouse() {
             delete[] sessions;
