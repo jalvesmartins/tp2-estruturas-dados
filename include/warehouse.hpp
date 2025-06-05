@@ -6,9 +6,7 @@
 class Warehouse {
     public:
         Warehouse() : sessions(nullptr) {}
-        Warehouse(int session_count) {
-            sessions = new Stack[session_count];
-        }
+        Warehouse(int id) : w_id(id) {}
 
         ~Warehouse() {
             delete[] sessions;
@@ -19,6 +17,8 @@ class Warehouse {
 
         void setId(id id);
         id getId();
+
+        void initializeSessions(int session_count);
 
     private:
         id w_id;

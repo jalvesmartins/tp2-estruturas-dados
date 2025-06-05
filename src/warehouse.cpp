@@ -33,3 +33,7 @@ void Warehouse::setId(::id id) {
 id Warehouse::getId() {
     return this->w_id;
 }
+
+void Warehouse::initializeSessions(int session_count) {
+    this->sessions = new Stack[session_count];
+}
