@@ -1,13 +1,13 @@
 #ifndef NODE_HPP
 #define NODE_HPP
 
-#include "./item.hpp"
+#include "./package.hpp"
 
 typedef struct Node {
-    Item item;
+    Package pack;
     Node* next;
     
-    Node() : item(), next(nullptr) {}
+    Node() : pack(), next(nullptr) {}
 } Node;
 
 #endif

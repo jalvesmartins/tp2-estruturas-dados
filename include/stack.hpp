@@ -2,17 +2,16 @@
 #define STACK_HPP
 
 #include "./node.hpp"
-#include "./item.hpp"
+#include "./package.hpp"
 
 class Stack {
     public:
         Stack() : top(nullptr), size(0) {}
         ~Stack();
 
-        void push(Item* new_item);
-        Item pop();
+        void push(Package* new_item);
+        Package pop();
         void clear();
-        Item* findAndRemove(Stack* aux_stack, Key key);
 
     private:
         Node* top;

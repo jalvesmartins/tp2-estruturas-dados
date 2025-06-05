@@ -5,11 +5,11 @@ typedef int Key;
 
 typedef int Load;
 
-class Item {
+class Package {
     public:
-        Item() : k(-1), l(0) {} 
-        Item(Key k, Load l) : k(k), l(l) {}
-        ~Item();
+        Package() : k(-1), l(0) {} 
+        Package(Key k, Load l) : k(k), l(l) {}
+        ~Package();
 
         Key getKey();
         Load getLoad();
