@@ -1,24 +1,54 @@
-#ifndef ITEM_HPP
-#define ITEM_HPP
+#ifndef PACK_HPP
+#define PACK_HPP
 
-typedef int Key;
+#include <string>
 
-typedef int Load;
+typedef int id;
 
 class Package {
     public:
-        Package() : k(-1), l(0) {} 
-        Package(Key k, Load l) : k(k), l(l) {}
-        ~Package();
+        Package() : id(-1), post_date(0), origin_warehouse_id(0),
+                    destination_warehouse_id(0), sender(NULL),
+                    recipient(NULL), type(NULL)  {}
 
-        Key getKey();
-        Load getLoad();
-        Key setKey(Key* new_k);
-        Load setLoad(Load* new_l);
+        Package(id id, int post_date, std::string sender, std::string recipient,
+                std::string type, int origin_warehouse_id, int destination_warehouse_id) : 
+
+                id(id), post_date(post_date), sender(sender), recipient(recipient),
+                type(type), origin_warehouse_id(origin_warehouse_id),
+                destination_warehouse_id(destination_warehouse_id)  {}
+        
+        ~Package() = default;
+
+        id getId();
+        void setId(id new_id);
+
+        int getPostDate();
+        void setPostDate(int new_pd);
+
+        int getOriginWarehouseId();
+        void setOriginWarehouseId(int new_ow_id);
+
+        int getDestinationWarehouseId();
+        void setDestinationWarehouseId(int new_dw_id);
+
+        std::string getSender();
+        void setSender(std::string new_sender);
+
+        std::string getRecipient();
+        void setRecipient(std::string new_recipient);
+
+        std::string getType();
+        void setType(std::string new_type);
 
     private:
-        Key k;
-        Load l;
+        id id;
+        int post_date;
+        int origin_warehouse_id;
+        int destination_warehouse_id;
+        std::string sender;
+        std::string recipient;
+        std::string type;
 };
 
 #endif
