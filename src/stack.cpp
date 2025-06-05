@@ -10,12 +10,12 @@ void Stack::push(Package* new_item) {
     size++;
 }
 
-Package Stack::pop() {
+Package* Stack::pop() {
     if(size == 0)
         throw "A pilha está vazia!";
 
     Node* deleted = top;
-    Package removed = top->pack;
+    Package* removed = &(top->pack);
     top = top->next;
     delete deleted;
     size--;
@@ -27,4 +27,12 @@ void Stack::clear() {
     while (size > 0) {
         pop();
     }
+}
+
+Node* Stack::getTop() {
+    return this->top;
+}
+
+int Stack::getSize() {
+    return this->size;
 }

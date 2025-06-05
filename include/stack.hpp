@@ -10,8 +10,10 @@ class Stack {
         ~Stack();
 
         void push(Package* new_item);
-        Package pop();
+        Package* pop();
         void clear();
+        Node* getTop();
+        int getSize();
 
     private:
         Node* top;
