@@ -25,3 +25,11 @@ Package* Warehouse::getPackage(int session, int id) {
 
     return pack;
 }
+
+void Warehouse::setId(::id id) {
+    this->w_id = id;
+}
+
+id Warehouse::getId() {
+    return this->w_id;
+}

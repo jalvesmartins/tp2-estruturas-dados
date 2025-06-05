@@ -17,7 +17,11 @@ class Warehouse {
         void storePackage(Package* pack);
         Package* getPackage(int session, int id);
 
+        void setId(id id);
+        id getId();
+
     private:
+        id w_id;
         Stack* sessions;
 };
 
