@@ -46,6 +46,7 @@ class Package {
         int post_date;
         int origin_warehouse_id;
         int destination_warehouse_id;
+        int* route;
         std::string sender;
         std::string recipient;
         std::string type;

@@ -5,8 +5,12 @@
 
 class List {
 public:
-    List();
-    ~List();
+    List() : head(nullptr), tail(nullptr) {};
+    ~List() {
+        while(!this->is_empty()) {
+            this->pop_front();
+        }
+    };
 
     void push_front(int data);
     void push_back(int data);
@@ -20,11 +24,10 @@ public:
     bool is_empty() const;
 
 private:
-
     struct L_Node {
         int data;
         L_Node* next;
-        L_Node(int val) : data(val), next(nullptr) {}
+        L_Node(int data) : data(data), next(nullptr) {}
     };
 
     L_Node* head;
