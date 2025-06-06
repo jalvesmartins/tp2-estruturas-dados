@@ -1,7 +1,7 @@
 #include "../include/warehouse.hpp"
 
-void Warehouse::storePackage(Package* pack) {
-    sessions->push(pack);
+void Warehouse::storePackage(int session, Package* pack) {
+    sessions[session].push(pack);
 }
 
 Package* Warehouse::getPackage(int session, int id) {

@@ -12,7 +12,7 @@ class Warehouse {
             delete[] sessions;
         };
 
-        void storePackage(Package* pack);
+        void storePackage(int session, Package* pack);
         Package* getPackage(int session, int id);
 
         void setId(id id);

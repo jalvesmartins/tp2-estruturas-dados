@@ -2,6 +2,7 @@
 #define PACK_HPP
 
 #include <string>
+#include "./list.hpp"
 
 typedef int id;
 
@@ -9,7 +10,7 @@ class Package {
     public:
         Package() : id(-1), post_date(0), origin_warehouse_id(0),
                     destination_warehouse_id(0), sender(NULL),
-                    recipient(NULL), type(NULL)  {}
+                    recipient(NULL), type(NULL), route()  {}
 
         Package(id id, int post_date, std::string sender, std::string recipient,
                 std::string type, int origin_warehouse_id, int destination_warehouse_id) : 
@@ -46,7 +47,7 @@ class Package {
         int post_date;
         int origin_warehouse_id;
         int destination_warehouse_id;
-        int* route;
+        List route;
         std::string sender;
         std::string recipient;
         std::string type;
