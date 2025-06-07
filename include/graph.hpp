@@ -27,12 +27,14 @@ class Graph {
 
         WHouse_Node* getGraph();
 
-        void insertNode(int n);
+        void readNodes(int node_count);
+        void readEdges(int node_count);
+
+        void insertNode();
         void insertEdge(int node, int viz);
 
     private:
         static int node_count;
-        static int double_edge_count;
         WHouse_Node* head;
         WHouse_Node* tail;
 };

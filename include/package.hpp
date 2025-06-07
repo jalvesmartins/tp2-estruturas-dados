@@ -6,6 +6,14 @@
 
 typedef int id;
 
+enum packageStatus {
+    NAO_FOI_POSTADO,
+    CHEGADA_ESCALONADAA_EM_UM_ARMAZEM,
+    CHEGOU_MAS_NAO_FOI_ARMAZENADO,
+    ARMAZENADO_EM_UM_ARMAZEM,
+    ALOCADO_PARA_TRANSPORTE,
+    ENTREGUE
+};
 class Package {
     public:
         Package() : id(-1), post_date(0), origin_warehouse_id(0),
@@ -44,6 +52,7 @@ class Package {
 
     private:
         id id;
+        packageStatus status;
         int post_date;
         int origin_warehouse_id;
         int destination_warehouse_id;
@@ -51,6 +60,11 @@ class Package {
         std::string sender;
         std::string recipient;
         std::string type;
+
+        int exp_stay_time;
+        int stored_time;
+        int transit_time;
+        int most_recent_change;
 };
 
 #endif

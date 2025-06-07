@@ -2,14 +2,31 @@
 #include <iostream>
 
 int Graph::node_count = 0;
-int Graph::double_edge_count = 0;
+
+void Graph::readNodes(int node_count) {
+    for (int i = 0; i < node_count; i++) {
+        insertNode();
+    }
+}
+
+void Graph::readEdges(int node_count) {
+    int count = 0, edge = 0;
+    for (int i = 0; i < node_count; i++) {
+        std::cin >> count;
+
+        for (int j = 0; j < count; j++) {
+            std::cin >> edge;
+            insertEdge(i, edge);
+        }
+    }
+}
 
 WHouse_Node* Graph::getGraph() {
     return this->head;
 }
 
-void Graph::insertNode(int n_id) {
-    WHouse_Node* new_node = new WHouse_Node(n_id);
+void Graph::insertNode() {
+    WHouse_Node* new_node = new WHouse_Node(node_count);
     this->node_count++;
 
     if (head == nullptr) {
@@ -44,8 +61,6 @@ void Graph::insertEdge(int n_id, int e_id) {
         new_edge->next = aux_edge;
         aux_node->edges = new_edge;
     }
-    
-    this->double_edge_count++;
     
     return;
 };
