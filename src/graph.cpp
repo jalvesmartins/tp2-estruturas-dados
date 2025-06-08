@@ -61,6 +61,8 @@ void Graph::insertEdge(int n_id, int e_id) {
         new_edge->next = aux_edge;
         aux_node->edges = new_edge;
     }
+
+    aux_node->warehouse.addSession(e_id);
     
     return;
 };
