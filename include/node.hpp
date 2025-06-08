@@ -4,12 +4,12 @@
 #include "./package.hpp"
 #include "./warehouse.hpp"
 
-typedef struct Node {
+typedef struct Pack_Node {
     Package pack;
-    Node* next;
+    Pack_Node* next;
     
-    Node() : pack(), next(nullptr) {}
-} Node;
+    Pack_Node() : pack(), next(nullptr) {}
+} Pack_Node;
 
 typedef struct Edge_Node {
     id e_id;

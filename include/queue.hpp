@@ -1,0 +1,7 @@
+class Queue {
+    public:
+
+
+    private:
+        
+};

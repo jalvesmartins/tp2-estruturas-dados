@@ -14,5 +14,7 @@ int main () {
     hanoi.readNodes(warehouse_count);
     hanoi.readEdges(warehouse_count);
 
+    //PACK_READ
+
 return 0;
 }

@@ -3,14 +3,14 @@
 
 Stack::~Stack() {
     while (top != nullptr) {
-        Node* temp = top;
+        Pack_Node* temp = top;
         top = top->next;
         delete temp;
     }
 }
 
 void Stack::push(Package* new_item) {
-    Node* new_node = new Node;
+    Pack_Node* new_node = new Pack_Node;
 
     new_node->pack = *new_item;
     new_node->next = this->top;
@@ -23,7 +23,7 @@ Package* Stack::pop() {
     if(size == 0)
         throw "A pilha está vazia!";
 
-    Node* deleted = top;
+    Pack_Node* deleted = top;
     Package* removed = &(top->pack);
     top = top->next;
     delete deleted;
@@ -38,7 +38,7 @@ void Stack::clear() {
     }
 }
 
-Node* Stack::getTop() {
+Pack_Node* Stack::getTop() {
     return this->top;
 }
 

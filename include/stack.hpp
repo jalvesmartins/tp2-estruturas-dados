@@ -3,7 +3,7 @@
 
 #include "./package.hpp"
 
-class Node;
+class Pack_Node;
 
 class Stack {
     public:
@@ -17,11 +17,11 @@ class Stack {
         void setId(int id);
         int getId();
 
-        Node* getTop();
+        Pack_Node* getTop();
         int getSize();
 
     private:
-        Node* top;
+        Pack_Node* top;
         int size;
         int id;
 }; 

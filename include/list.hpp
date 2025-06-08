@@ -13,17 +13,14 @@ public:
         L_Node(T& data_ref) : data(data_ref), next(nullptr) {}
     };
 
-    // Constructor
     List() : head(nullptr), tail(nullptr) {}
 
-    // Destructor - no 'List<T>::' needed
     ~List() {
         while (!is_empty()) {
             pop_front();
         }
     }
 
-    // push_front - no 'List<T>::' needed
     void push_front(T& data) {
         L_Node* new_node = new L_Node(data);
         if (is_empty()) {
@@ -35,7 +32,6 @@ public:
         }
     }
 
-    // push_back - no 'List<T>::' needed
     void push_back(T& data) {
         L_Node* new_node = new L_Node(data);
         if (is_empty()) {
@@ -47,7 +43,6 @@ public:
         }
     }
 
-    // pop_front - no 'List<T>::' needed
     T pop_front() {
         if (is_empty()) {
             throw std::runtime_error("List is empty");
@@ -66,7 +61,6 @@ public:
         return value;
     }
 
-    // pop_back - no 'List<T>::' needed
     T pop_back() {
         if (is_empty()) {
             throw std::runtime_error("List is empty");
@@ -90,7 +84,6 @@ public:
         return value;
     }
 
-    // front - no 'List<T>::' needed
     T& front() {
         if (is_empty()) {
             throw std::runtime_error("List is empty");
@@ -98,7 +91,6 @@ public:
         return head->data;
     }
 
-    // back - no 'List<T>::' needed
     T& back() {
         if (is_empty()) {
             throw std::runtime_error("List is empty");
@@ -106,22 +98,17 @@ public:
         return tail->data;
     }
 
-    // getHead - no 'List<T>::' needed
     L_Node* getHead() {
         return this->head;
     }
 
-    // getData - no 'List<T>::' needed AND corrected the bug
     T& getData() {
         if (is_empty()) {
             throw std::runtime_error("List is empty");
         }
-        // BUG FIX: The List class has no 'data' member.
-        // Assuming you want the data from the first node.
         return this->head->data;
     }
 
-    // is_empty - no 'List<T>::' needed
     bool is_empty() const {
         return head == nullptr;
     }
