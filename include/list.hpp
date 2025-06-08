@@ -2,34 +2,32 @@
 #define LIST_HPP
 
 #include <iostream>
-
+template<typename T>
 class List {
 public:
-    List() : head(nullptr), tail(nullptr) {};
-    ~List() {
-        while(!this->is_empty()) {
-            this->pop_front();
-        }
+    struct L_Node {
+        T data;
+        L_Node* next;
+        L_Node(T& data) : data(data), next(nullptr) {}
     };
 
-    void push_front(int data);
-    void push_back(int data);
+    List() : head(nullptr), tail(nullptr) {};
+    ~List();
 
-    int pop_front();
-    int pop_back();
+    void push_front(T& data);
+    void push_back(T& data);
 
-    int front() const;
-    int back() const;
+    T pop_front();
+    T pop_back();
 
+    L_Node* getHead();
+
+    T& getData();
+    T& front();
+    T& back();
     bool is_empty() const;
 
 private:
-    struct L_Node {
-        int data;
-        L_Node* next;
-        L_Node(int data) : data(data), next(nullptr) {}
-    };
-
     L_Node* head;
     L_Node* tail;
 };

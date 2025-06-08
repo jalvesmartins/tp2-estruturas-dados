@@ -5,24 +5,22 @@
 
 class Warehouse {
     public:
-        Warehouse() : w_id(-1), sessions(nullptr) {}
-        Warehouse(int id) : w_id(id), sessions(nullptr) {}
-
-        ~Warehouse() {
-            delete[] sessions;
-        };
-
-        void storePackage(int session, Package* pack);
-        Package* getPackage(int session, int id);
+        Warehouse() : w_id(-1), sessions() {}
+        Warehouse(int id) : w_id(id), sessions() {}
+        ~Warehouse() {}
 
         void setId(id id);
         id getId();
 
-        void initializeSessions(int session_count);
+        void storePackage(int session_id, Package* pack);
+        Package* getPackage(int session_id, int id);
+
+        void addSession(int edge_id);
+        void removeSession(int edge_id);
 
     private:
         id w_id;
-        Stack* sessions;
+        List<Stack> sessions;
 };
 
 #endif

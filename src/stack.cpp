@@ -36,3 +36,11 @@ Node* Stack::getTop() {
 int Stack::getSize() {
     return this->size;
 }
+
+void Stack::setId(int id) {
+    this->id = id;
+}
+
+int Stack::getId() {
+    return this->id;
+}

@@ -1,88 +1,109 @@
 #include "../include/list.hpp"
 
-void List::push_front(int data) {
-    L_Node* new_node = new L_Node(data);
-
-    if(this->is_empty()) {
-        this->head = new_node;
-        this->tail = new_node;
-    } else {
-        new_node->next = this->head;
-        this->head = new_node;
+template<typename T>
+List<T>::~List() {
+    while (!is_empty()) {
+        pop_front();
     }
-    return;
 }
 
-void List::push_back(int data) {
+template<typename T>
+void List<T>::push_front(T& data) {
     L_Node* new_node = new L_Node(data);
-
-    if(this->is_empty()) {
-        this->head = new_node;
-        this->tail = new_node;
+    if (is_empty()) {
+        head = new_node;
+        tail = new_node;
     } else {
-        this->tail->next = new_node;
-        this->tail = new_node;
+        new_node->next = head;
+        head = new_node;
     }
-    return;
 }
 
-int List::pop_front() {
-    if(this->is_empty()) {
-        throw std::runtime_error("Lista vazia!");
-    }
-
-    int value = this->head->data;
-    L_Node* temp_node = this->head;
-
-    if(this->head == this->tail) {
-        this->head = nullptr;
-        this->tail = nullptr;
+template<typename T>
+void List<T>::push_back(T& data) {
+    L_Node* new_node = new L_Node(data);
+    if (is_empty()) {
+        head = new_node;
+        tail = new_node;
     } else {
-        this->head = this->head->next;
+        tail->next = new_node;
+        tail = new_node;
+    }
+}
+
+template<typename T>
+T List<T>::pop_front() {
+    if (is_empty()) {
+        throw std::runtime_error("List is empty");
+    }
+    L_Node* temp_node = head;
+    T value = head->data;
+
+    if (head == tail) {
+        head = nullptr;
+        tail = nullptr;
+    } else {
+        head = head->next;
     }
 
     delete temp_node;
     return value;
 }
 
-int List::pop_back() {
-    if(this->is_empty()) {
-        throw std::runtime_error("Lista vazia!");
+template<typename T>
+T List<T>::pop_back() {
+    if (is_empty()) {
+        throw std::runtime_error("List is empty");
     }
+    L_Node* temp_node = tail;
+    T value = tail->data;
 
-    int value = this->tail->data;
-    L_Node* temp_node = this->tail;
-
-    if(this->head == this->tail) {
-        this->head = nullptr;
-        this->tail = nullptr;
+    if (head == tail) {
+        head = nullptr;
+        tail = nullptr;
     } else {
-        L_Node* aux_node = this->head;
-        while(aux_node->next != this->tail) {
-            aux_node = aux_node->next;
+        L_Node* current = head;
+        while (current->next != tail) {
+            current = current->next;
         }
-        this->tail = aux_node;
-        this->tail->next = nullptr;
+        tail = current;
+        tail->next = nullptr;
     }
 
     delete temp_node;
     return value;
 }
 
-int List::front() const {
-    if(this->is_empty()) {
-        throw std::runtime_error("Cannot call front() on an empty list.");
+template<typename T>
+T& List<T>::front() {
+    if (is_empty()) {
+        throw std::runtime_error("Lista vazia");
     }
-    return this->head->data;
+    return head->data;
 }
 
-int List::back() const {
-    if(this->is_empty()) {
-        throw std::runtime_error("Cannot call back() on an empty list.");
+template<typename T>
+T& List<T>::back() {
+    if (is_empty()) {
+        throw std::runtime_error("Lista vazia");
     }
-    return this->tail->data;
+    return tail->data;
 }
 
-bool List::is_empty() const {
-    return this->head == nullptr;
+template<typename T>
+typename List<T>::L_Node* List<T>::getHead() {
+    return this->head;
+}
+
+template<typename T>
+T& List<T>::getData() {
+    if (is_empty()) {
+        throw std::runtime_error("Lista vazia");
+    }
+    return this->data;
+}
+
+template<typename T>
+bool List<T>::is_empty() const {
+    return head == nullptr;
 }
