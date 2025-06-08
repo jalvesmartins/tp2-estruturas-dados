@@ -27,6 +27,7 @@ WHouse_Node* Graph::getGraph() {
 
 void Graph::insertNode() {
     WHouse_Node* new_node = new WHouse_Node(node_count);
+    std::cout << "WHOUSE " << node_count << "CREATED" << std::endl;
     this->node_count++;
 
     if (head == nullptr) {

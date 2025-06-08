@@ -14,6 +14,5 @@ int main () {
     hanoi.readNodes(warehouse_count);
     hanoi.readEdges(warehouse_count);
 
-
 return 0;
 }

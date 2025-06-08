@@ -1,4 +1,4 @@
-#include "../include/list.hpp"
+/* #include "../include/list.hpp"
 
 template<typename T>
 List<T>::~List() {
@@ -106,4 +106,4 @@ T& List<T>::getData() {
 template<typename T>
 bool List<T>::is_empty() const {
     return head == nullptr;
-}
+} */

@@ -1,8 +1,9 @@
 #ifndef STACK_HPP
 #define STACK_HPP
 
-#include "./node.hpp"
 #include "./package.hpp"
+
+class Node;
 
 class Stack {
     public:

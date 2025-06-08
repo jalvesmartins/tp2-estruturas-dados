@@ -1,4 +1,13 @@
 #include "../include/stack.hpp"
+#include "../include/node.hpp"
+
+Stack::~Stack() {
+    while (top != nullptr) {
+        Node* temp = top;
+        top = top->next;
+        delete temp;
+    }
+}
 
 void Stack::push(Package* new_item) {
     Node* new_node = new Node;

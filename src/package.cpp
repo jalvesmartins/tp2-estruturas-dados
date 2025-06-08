@@ -1,7 +1,7 @@
 #include "../include/package.hpp"
 
 ::id Package::getId() {
-    return this->id;
+    return this->pack_id;
 }
 
 int Package::getPostDate() {
@@ -29,7 +29,7 @@ std::string Package::getType() {
 }
 
 void Package::setId(::id new_id) {
-    this->id = new_id;
+    this->pack_id = new_id;
 }
 
 void Package::setPostDate(int new_pd) {

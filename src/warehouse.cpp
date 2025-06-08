@@ -1,5 +1,6 @@
 #include "../include/warehouse.hpp"
 #include "../include/list.hpp"
+#include "../include/node.hpp"
 
 
 void Warehouse::storePackage(int session, Package* pack) {
@@ -69,4 +70,5 @@ void Warehouse::addSession(int edge_id) {
     Stack* new_session = new Stack;
     new_session->setId(edge_id);
     sessions.push_back(*new_session);
+    std::cout << "STACK " << sessions.back().getId() << "CREATED" << std::endl;
 }

@@ -14,18 +14,20 @@ enum packageStatus {
     ALOCADO_PARA_TRANSPORTE,
     ENTREGUE
 };
+
+//ADD LOGICA INICIALIZAÇÂO ROTAS
 class Package {
     public:
-        Package() : id(-1), post_date(0), origin_warehouse_id(0),
-                    destination_warehouse_id(0), sender(NULL),
-                    recipient(NULL), type(NULL), route()  {}
+        Package() : pack_id(-1), status(NAO_FOI_POSTADO), post_date(0), origin_warehouse_id(0),
+                    destination_warehouse_id(0), route(), sender(NULL),
+                    recipient(NULL), type(NULL)  {}
 
-        Package(id id, int post_date, std::string sender, std::string recipient,
+        Package(id id, packageStatus status, int post_date, std::string sender, std::string recipient,
                 std::string type, int origin_warehouse_id, int destination_warehouse_id) : 
 
-                id(id), post_date(post_date), sender(sender), recipient(recipient),
-                type(type), origin_warehouse_id(origin_warehouse_id),
-                destination_warehouse_id(destination_warehouse_id)  {}
+                pack_id(id),  status(status), post_date(post_date), origin_warehouse_id(origin_warehouse_id),
+                destination_warehouse_id(destination_warehouse_id), route(), sender(sender), recipient(recipient),
+                type(type) {}
         
         ~Package() = default;
 
@@ -51,12 +53,12 @@ class Package {
         void setType(std::string new_type);
 
     private:
-        id id;
+        id pack_id;
         packageStatus status;
         int post_date;
         int origin_warehouse_id;
         int destination_warehouse_id;
-        List route;
+        List<int> route;
         std::string sender;
         std::string recipient;
         std::string type;
