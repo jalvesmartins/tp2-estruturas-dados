@@ -10,13 +10,13 @@ void Graph::readNodes(int node_count) {
 }
 
 void Graph::readEdges(int node_count) {
-    int count = 0, edge = 0;
-    for (int i = 0; i < node_count; i++) {
-        std::cin >> count;
-
-        for (int j = 0; j < count; j++) {
-            std::cin >> edge;
-            insertEdge(i, edge);
+    int warehouse = 0, edge_exists = 0;
+    for (int warehouse = 0; warehouse < node_count; warehouse++) {
+        for (int columns = 0; columns < node_count; columns++) {
+            std::cin >> edge_exists;
+            if (edge_exists == 1) {
+                insertEdge(warehouse, columns);
+            }
         }
     }
 }

@@ -22,10 +22,10 @@ class Package {
                     destination_warehouse_id(0), route(), sender(NULL),
                     recipient(NULL), type(NULL)  {}
 
-        Package(id id, packageStatus status, int post_date, std::string sender, std::string recipient,
+        Package(id id , int post_date, std::string sender, std::string recipient,
                 std::string type, int origin_warehouse_id, int destination_warehouse_id) : 
 
-                pack_id(id),  status(status), post_date(post_date), origin_warehouse_id(origin_warehouse_id),
+                pack_id(id),  status(NAO_FOI_POSTADO), post_date(post_date), origin_warehouse_id(origin_warehouse_id),
                 destination_warehouse_id(destination_warehouse_id), route(), sender(sender), recipient(recipient),
                 type(type) {}
         
