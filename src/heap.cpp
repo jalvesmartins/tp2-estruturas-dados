@@ -1,89 +1,73 @@
 #include "../include/heap.hpp"
-#include <stdio.h>
-#include <stdlib.h>
 
-Heap* NovoHeap(int maxsize) {
-    Heap* h = new Heap;
-    h->size = 0;
-    h->events = new Event[maxsize];
-    return h;
-}
-
-void deleteHeap(Heap* h) {
-    if (h != NULL) {
-        delete[] h->events;
-        delete h;
+void Heap::insert(Event* new_event) {
+    if (this->size == this->capacity) {
+        return;
     }
+    this->events[this->size] = *new_event;
+    bottomHeapfy(this->size);
+    this->size++;
 }
 
-void insert(Heap* h, Event* new_event) {
-    h->events[h->size] = *new_event;
-    bottomHeapfy(h, h->size);
-    h->size++;
-}
-
-Event remove(Heap* h) {
-    Event removed = h->events[0];
-    h->size--;
-    h->events[0] = h->events[h->size];
-
-    h->events[h->size].resetEvent();
-
-    topHeapfy(h, 0);
-
+Event Heap::remove() {
+    Event removed = this->events[0];
+    this->size--;
+    this->events[0] = this->events[this->size];
+    this->events[this->size].resetEvent();
+    topHeapfy(0);
     return removed;
 }
 
-Event* GetAncestral(Heap* h, int index) {
-    return &h->events[(index - 1) / 2];
+Event* Heap::getAncestral(int index) {
+    if (index == 0) return nullptr;
+    return &this->events[(index - 1) / 2];
 }
 
-Event* GetSucessorEsq(Heap* h, int index) {
-    return &h->events[(2 * index) + 1];
-}
-Event* GetSucessorDir(Heap* h, int index) {
-    return &h->events[(2 * index) + 2];
+Event* Heap::getSucessorEsq(int index) {
+    int left = (2 * index) + 1;
+    if (left >= this->size) return nullptr;
+    return &this->events[left];
 }
 
-//Retorna 1 caso h esteja vazio, 0 caso contrário.
-int isEmpty(Heap* h) {
-    if (h->size != 0) {
+Event* Heap::getSucessorDir(int index) {
+    int right = (2 * index) + 2;
+    if (right >= this->size) return nullptr;
+    return &this->events[right];
+}
+
+int Heap::isEmpty() {
+    if (this->size != 0) {
         return 0;
     }
     return 1;
 }
 
-//Funções necessárias para implementar o Heapify recursivo
-void bottomHeapfy(Heap* h, int index) {
-    if (h->events[index] < h->events[(index - 1) / 2]) {
-        Event aux_event = h->events[(index - 1) / 2];
-        h->events[(index - 1) / 2] = h->events[index];
-        h->events[index] = aux_event;
-
-        bottomHeapfy(h, (index - 1) / 2);
+void Heap::bottomHeapfy(int index) {
+    if (index > 0 && events[index] < *getAncestral(index)) {
+        Event aux_event = *getAncestral(index);
+        events[(index - 1) / 2] = events[index];
+        events[index] = aux_event;
+        bottomHeapfy((index - 1) / 2);
     }
-    return;
 }
 
-void topHeapfy(Heap* h, int index) {
+void Heap::topHeapfy(int index) {
     int left = (2 * index) + 1;
     int right = (2 * index) + 2;
     
-    if (left >= h->size) return;
+    if (left >= this->size) return;
 
     int min;
-
-    if (right >= h->size) {
+    if (right >= this->size) {
         min = left;
     } else {
-        min = (h->events[left] < h->events[right]) ? left : right;
+        min = (events[left] < events[right]) ? left : right;
     }
 
-    if (h->events[min] < h->events[index]) {
-        Event aux_event = h->events[min];
-        h->events[min] = h->events[index];
-        h->events[index] = aux_event;
-
-        topHeapfy(h, min);
+    if (events[min] < events[index]) {
+        Event aux_event = events[min];
+        events[min] = events[index];
+        events[index] = aux_event;
+        topHeapfy(min);
     }
 }

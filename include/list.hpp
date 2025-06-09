@@ -3,15 +3,16 @@
 
 #include <iostream>
 #include <stdexcept> // Required for std::runtime_error
+template<typename T>
+struct L_Node {
+    T data;
+    L_Node* next;
+    L_Node(T& data_ref) : data(data_ref), next(nullptr) {}
+};
 
 template<typename T>
 class List {
 public:
-    struct L_Node {
-        T data;
-        L_Node* next;
-        L_Node(T& data_ref) : data(data_ref), next(nullptr) {}
-    };
 
     List() : head(nullptr), tail(nullptr) {}
 

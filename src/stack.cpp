@@ -53,3 +53,7 @@ void Stack::setId(int id) {
 int Stack::getId() {
     return this->id;
 }
+
+int Stack::isEmpty() {
+    return top == nullptr;
+}

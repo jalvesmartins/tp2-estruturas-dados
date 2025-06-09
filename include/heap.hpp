@@ -3,24 +3,32 @@
 
 #include "./event.hpp"
 
-typedef struct s_heap{
+class Heap {
+public:
+    Heap(int maxsize) {
+        this->size = 0;
+        this->capacity = maxsize; 
+        this->events = new Event[maxsize];
+    }
+
+    ~Heap() {
+        delete[] this->events;
+    }
+
+    void insert(Event* new_event);
+    Event remove();
+    Event* getAncestral(int index);
+    Event* getSucessorEsq(int index);
+    Event* getSucessorDir(int index);
+    int isEmpty();
+
+private:
     int size;
+    int capacity;
     Event* events;
-   } Heap;
 
-   Heap* newHeap(int maxsize);
-   void deleteHeap(Heap* h);
-   void insert(Heap* h, int x);
-   Event remove(Heap* h);
-   Event* getParent(Heap* h, int index);
-   Event* getLeftChild(Heap* h, int index);
-   Event* getRightChild(Heap* h, int index);
+    void bottomHeapfy(int index);
+    void topHeapfy(int index);
+};
 
-   //Retorna 1 caso h esteja vazio, 0 caso contrário.
-   int isEmpty(Heap* h);
-   
-   //Funções necessárias para implementar o Heapify recursivo
-   void bottomHeapfy(Heap* h, int index);
-   void topHeapfy(Heap* h, int index);
-
-   #endif
+#endif

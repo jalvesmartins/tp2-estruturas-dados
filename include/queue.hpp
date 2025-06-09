@@ -1,7 +1,0 @@
-class Queue {
-    public:
-
-
-    private:
-        
-};

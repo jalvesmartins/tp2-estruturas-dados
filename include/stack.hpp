@@ -13,12 +13,11 @@ class Stack {
         void push(Package* new_item);
         Package* pop();
         void clear();
-
         void setId(int id);
         int getId();
-
         Pack_Node* getTop();
         int getSize();
+        int isEmpty();
 
     private:
         Pack_Node* top;
