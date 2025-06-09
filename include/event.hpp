@@ -4,31 +4,98 @@
 #include "./package.hpp"
 #include "./warehouse.hpp"
 
-enum eventType {
-    STORING_EVENT,
-    TRANSPORT_EVENT
-};
-
 class Event {
     public:
-        Event(eventType type, int post_time, Package* pack, Warehouse* destination) : 
-        type(type), post_time(post_time), pack(pack), destination(destination) {}
+        Event() : key("0000000000000"), post_time(0), pack(nullptr), origin(nullptr), destination(nullptr) {} 
+        Event(int event_type, int post_time, Package* pack, Warehouse* origin, Warehouse* destination) : 
+            post_time(post_time),
+            pack(pack),
+            origin(origin),
+            destination(destination)     
+        {
+            snprintf(key, 7, "%06d", post_time);
+
+            switch (event_type) {
+                case 1:
+                    // VERIFICAÇÃO DE SEGURANÇA: Só acesse 'pack' se ele não for nulo.
+                    if (this->pack != nullptr) {
+                        snprintf(key + 6, 7, "%06d", this->pack->getId());
+                    } else {
+                        // Se o pack for nulo, preenchemos com zeros para manter a chave válida.
+                        snprintf(key + 6, 7, "%06d", 0);
+                    }
+                    key[12] = '1';
+                    key[13] = '\0';
+                    break; // O 'break' que você já havia adicionado corretamente.
+                    
+                case 2:
+                    // VERIFICAÇÃO DE SEGURANÇA: Só acesse os ponteiros se ambos forem válidos.
+                    if (this->origin != nullptr && this->destination != nullptr) {
+                        snprintf(key + 6, 4, "%03d", this->origin->getId());
+                        snprintf(key + 9, 4, "%03d", this->destination->getId());
+                    } else {
+                        // Se algum for nulo, preenchemos com zeros.
+                        snprintf(key + 6, 7, "%06d", 0);
+                    }
+                    key[12] = '2';
+                    key[13] = '\0';
+                    break; // << ADICIONADO o 'break' que faltava aqui.
+
+                default:
+                    // Agora o default só executa se o tipo não for nem 1 nem 2.
+                    // É uma boa ideia ter um estado padrão para a chave em caso de erro.
+                    snprintf(key + 6, 7, "%06d", 0);
+                    key[12] = '0';
+                    key[13] = '\0';
+                    break;
+            }
+        }
 
         ~Event() = default;
 
-        bool operator<(const Event& other) const {
-            return this->post_time < other.post_time;
-        }
-
-        bool operator>(const Event& other) const {
-            return this->post_time > other.post_time;
-        }
+        int getTime();
+        int getOriginId();
+        int getDestinationId();
+        int getPackId();
+        int getType();
+        void resetEvent();
 
     private:
-        eventType type;
+        char key[14];
         int post_time;
         Package* pack;
+        Warehouse* origin;
         Warehouse* destination;
 };
+
+// Retorna 'true' se 'a' tiver MAIOR prioridade que 'b'.
+bool operator<(Event& a, Event& b) {
+    // 1. Critério primário: TEMPO
+    // Se os tempos são diferentes, o de menor tempo tem maior prioridade.
+    if (a.getTime() != b.getTime()) {
+        return a.getTime() < b.getTime();
+    }
+
+    // 2. Critério de desempate: TIPO DE EVENTO
+    // Se os tempos são iguais, o de menor tipo tem maior prioridade.
+    if (a.getType() != b.getType()) {
+        return a.getType() < b.getType();
+    }
+
+    // 3. Critério final: DADOS ESPECÍFICOS DO EVENTO
+    // Se tempo e tipo são iguais, a comparação final depende do tipo.
+    if (a.getType() == 1) {
+        // Ambos são eventos de Pacote. Desempata pelo ID do pacote.
+        return a.getPackId() < b.getPackId();
+    } else { // a.getType() == 2
+        // Ambos são eventos de Transporte.
+        // Desempata primeiro pela origem, depois pelo destino.
+        if (a.getOriginId() != b.getOriginId()) {
+            return a.getOriginId() < b.getOriginId();
+        }
+        // Se as origens são iguais, desempata pelo destino.
+        return a.getDestinationId() < b.getDestinationId();
+    }
+}
 
 #endif
