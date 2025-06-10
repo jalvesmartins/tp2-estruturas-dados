@@ -30,6 +30,8 @@ public:
             new_node->next = head;
             head = new_node;
         }
+
+        size++;
     }
 
     void push_back(T& data) {
@@ -41,6 +43,8 @@ public:
             tail->next = new_node;
             tail = new_node;
         }
+
+        size++;
     }
 
     T pop_front() {
@@ -58,6 +62,7 @@ public:
         }
 
         delete temp_node;
+        size--;
         return value;
     }
 
@@ -81,6 +86,7 @@ public:
         }
 
         delete temp_node;
+        size--;
         return value;
     }
 
@@ -137,6 +143,7 @@ public:
 private:
     L_Node* head;
     L_Node* tail;
+    int size;
 };
 
 #endif

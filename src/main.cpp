@@ -2,6 +2,7 @@
 
 #include "../include/graph.hpp"
 #include "../include/transport.hpp"
+#include "../include/scheduler.hpp"
 #include <limits>
 
 int main () {
@@ -28,6 +29,9 @@ int main () {
 
     Transport transport(transport_capacity, transport_latency, transport_gap, 
                     removal_cost, warehouse_count, pack_count);
+
+    // REVISAR
+    Scheduler admin(pack_count * warehouse_count);
  
     for (int i = 0; i < pack_count; i++) {
         int pack_post_time = 0;
@@ -52,6 +56,12 @@ int main () {
         Package* pack = new Package(pack_post_time, pack_id, origin_wh_id, destination_wh_id);
 
         transport.calculateRoute(&hanoi, pack);
+
+        admin.scheduleEvent(1, pack->getPostDate(), pack, &(hanoi.findWHouseNode(pack->getOriginWarehouseId())->warehouse), 
+                                                          &(hanoi.findWHouseNode(pack->getDestinationWarehouseId())->warehouse));
+
+        
     }
+
 return 0;
 }

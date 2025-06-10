@@ -29,6 +29,12 @@ void Event::resetEvent() {
     return;
 }
 
+void Event::printKey() {
+    // A variável 'key' é um array de char (C-style string),
+    // então podemos passá-la diretamente para o std::cout.
+    std::cout << "Event Key: " << this->key;
+}
+
 // Retorna 'true' se 'a' tiver MAIOR prioridade que 'b'.
 bool operator<(Event& a, Event& b) {
     // 1. Critério primário: TEMPO

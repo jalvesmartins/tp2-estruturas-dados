@@ -7,9 +7,10 @@
 class Scheduler {
     public:
         Scheduler(int maxsize) : scheduler(maxsize) {};
-        ~Scheduler();
+        ~Scheduler() = default;
 
-        void scheduleEvent();
+        void scheduleEvent(int event_type, int post_time, Package* pack, Warehouse* origin, Warehouse* destination);
+        Event* removeEvent();
 
     private:
         Heap scheduler;

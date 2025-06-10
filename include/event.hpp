@@ -60,6 +60,8 @@ class Event {
         int getType();
         void resetEvent();
 
+        void printKey();
+
     private:
         char key[14];
         int post_time;

@@ -33,6 +33,7 @@ class Package {
         int getOriginWarehouseId();
         int getDestinationWarehouseId();
         void setRoute(List<int>& route);
+        int getListSize();
 
     private:
         id pack_id;
