@@ -2,7 +2,6 @@
 #include "../include/list.hpp"
 #include "../include/node.hpp"
 
-
 void Warehouse::storePackage(int session, Package* pack) {
     typename List<Stack>::L_Node* aux_node = sessions.getHead();
     while (aux_node->data.getId() != session) {

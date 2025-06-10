@@ -2,6 +2,7 @@
 #define GRAPH_HPP
 
 #include "./node.hpp"
+#include "warehouse.hpp"
 
 class Graph {
     public:
@@ -31,7 +32,9 @@ class Graph {
         void readEdges(int node_count);
 
         void insertNode();
-        void insertEdge(int node, int viz);
+        void insertEdge(int node, int edge);
+
+        WHouse_Node* findWHouseNode(int w_id);
 
     private:
         static int node_count;

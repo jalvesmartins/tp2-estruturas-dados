@@ -1,13 +1,15 @@
 #ifndef BFS_HPP
 #define BFS_HPP
 
+#include "./list.hpp"
+#include "./graph.hpp"
+
 struct Q_Node {
     int id;
     Q_Node* next;
 
     Q_Node(int id) : id(id), next(nullptr) {}
 };
-
 
 class Queue {
     public:
@@ -36,7 +38,7 @@ class Queue {
             head = head->next;
 
             if (head == nullptr) {
-                tail == nullptr;
+                tail = nullptr;
             }
 
             delete aux_node;
@@ -51,6 +53,5 @@ class Queue {
         Q_Node* head;
         Q_Node* tail;
 };
-
 
 #endif

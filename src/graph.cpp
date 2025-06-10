@@ -11,7 +11,7 @@ void Graph::readNodes(int node_count) {
 
 void Graph::readEdges(int node_count) {
     int warehouse = 0, edge_exists = 0;
-    for (int warehouse = 0; warehouse < node_count; warehouse++) {
+    for (warehouse = 0; warehouse < node_count; warehouse++) {
         for (int columns = 0; columns < node_count; columns++) {
             std::cin >> edge_exists;
             if (edge_exists == 1) {
@@ -27,7 +27,6 @@ WHouse_Node* Graph::getGraph() {
 
 void Graph::insertNode() {
     WHouse_Node* new_node = new WHouse_Node(node_count);
-    std::cout << "WHOUSE " << node_count << "CREATED" << std::endl;
     this->node_count++;
 
     if (head == nullptr) {
@@ -67,3 +66,13 @@ void Graph::insertEdge(int n_id, int e_id) {
     
     return;
 };
+
+WHouse_Node* Graph::findWHouseNode(int w_id) {
+    WHouse_Node* aux_node = head;
+
+    while (aux_node->n_id != w_id) {
+        aux_node = aux_node->next;
+    }
+
+    return aux_node;
+}

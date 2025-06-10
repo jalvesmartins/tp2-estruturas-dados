@@ -3,7 +3,9 @@
 
 #include "./package.hpp"
 
-class Pack_Node;
+class Package;
+
+struct Pack_Node;
 
 class Stack {
     public:

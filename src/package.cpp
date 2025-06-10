@@ -15,3 +15,7 @@ int Package::getOriginWarehouseId() {
 int Package::getDestinationWarehouseId() {
     return this->destination_warehouse_id;
 }
+
+void Package::setRoute(List<int>& route) {
+    this->route = route;
+}
