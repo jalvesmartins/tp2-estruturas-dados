@@ -60,3 +60,36 @@ void Transport::calculateRoute(Graph* graph, Package* pack) {
     pack->setRoute(route); // Atrinui a rota calculada ao pacote.
     return;
 }
+
+void Transport::addTime(Package* pack, int time) {
+    pack->addTime(time);
+}
+
+void Transport::executeEvent(Scheduler* admin, Graph* graph) {
+    Event executed_event = admin->removeEvent();
+
+    switch (executed_event.getType()) {
+        case 1: {
+            WHouse_Node* warehouse = graph->findWHouseNode(executed_event.getOriginId());
+            int session = executed_event.getDestinationId();
+            Package* pack = executed_event.getPack();
+            warehouse->warehouse.storePackage(session, pack);
+            printf("%07d pacote %03d armazenado em %03d na secao %03d\n", 
+            pack->getTime(), pack->getId(), warehouse->n_id, session);
+
+            break;
+        }
+        case 2: {
+            break;
+
+        }
+
+        default: {
+            break;
+        }
+    }
+    
+    int wh_id = executed_event.getOriginId();
+    WHouse_Node* wh_node = graph->findWHouseNode(wh_id);
+    
+}

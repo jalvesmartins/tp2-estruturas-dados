@@ -4,14 +4,22 @@
 
 void Warehouse::storePackage(int session, Package* pack) {
     typename List<Stack>::L_Node* aux_node = sessions.getHead();
-    while (aux_node->data.getId() != session) {
+
+    // Loop seguro que para se a sessão for encontrada OU se a lista acabar
+    while (aux_node != nullptr && aux_node->data.getId() != session) {
         aux_node = aux_node->next;
     }
-    aux_node->data.push(pack);
+
+    // DEPOIS do loop, verifique se o nó foi encontrado
+    if (aux_node != nullptr) {
+        // Se não for nulo, significa que encontramos a sessão correta
+        aux_node->data.push(pack);
+    }
+    
     return;
 }
 
-Package* Warehouse::getPackage(int session, int id) {
+/*Package* Warehouse::getPackage(int session, int id) {
     Stack aux_stack;
     typename List<Stack>::L_Node* aux_node = sessions.getHead();
 
@@ -55,7 +63,7 @@ Package* Warehouse::getPackage(int session, int id) {
     // 5. Return the final result
     // This will be the package pointer if it was found, or nullptr if it wasn't.
     return found_pack;
-}
+}*/
 
 void Warehouse::setId(::id id) {
     this->w_id = id;

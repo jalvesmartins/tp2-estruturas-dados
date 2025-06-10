@@ -2,6 +2,7 @@
 #include "./event.hpp"
 #include "./graph.hpp"
 #include "./queue.hpp"
+#include "./scheduler.hpp"
 
 class Transport {
     public:
@@ -14,6 +15,10 @@ class Transport {
         ~Transport() = default;
 
         void calculateRoute(Graph* graph, Package* pack);
+        void executeEvent(Scheduler* admin, Graph* graph);
+
+        void addTime(Package* pack, int time);
+        
 
     private:
         int transport_capacity; //Capacidade do transporte.

@@ -6,7 +6,7 @@ int Event::getTime() {
 }
 
 int Event::getType() {
-    return this->key[12];
+    return this->key[12] - '0';
 }
 
 int Event::getPackId() {
@@ -33,6 +33,10 @@ void Event::printKey() {
     // A variável 'key' é um array de char (C-style string),
     // então podemos passá-la diretamente para o std::cout.
     std::cout << "Event Key: " << this->key;
+}
+
+Package* Event::getPack() {
+    return this->pack;
 }
 
 // Retorna 'true' se 'a' tiver MAIOR prioridade que 'b'.

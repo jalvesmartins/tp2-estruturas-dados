@@ -28,7 +28,7 @@ int main () {
     std:: cin >> pack_count;
 
     Transport transport(transport_capacity, transport_latency, transport_gap, 
-                    removal_cost, warehouse_count, pack_count);
+                        removal_cost, warehouse_count, pack_count);
 
     // REVISAR
     Scheduler admin(pack_count * warehouse_count);
@@ -58,9 +58,12 @@ int main () {
         transport.calculateRoute(&hanoi, pack);
 
         admin.scheduleEvent(1, pack->getPostDate(), pack, &(hanoi.findWHouseNode(pack->getOriginWarehouseId())->warehouse), 
-                                                          &(hanoi.findWHouseNode(pack->getDestinationWarehouseId())->warehouse));
+        &(hanoi.findWHouseNode(pack->getDestinationWarehouseId())->warehouse));
 
-        
+    }
+
+    while (!admin.isEmpty()) {
+        transport.executeEvent(&admin, &hanoi);
     }
 
 return 0;

@@ -35,6 +35,7 @@ class Package {
         void setRoute(List<int>& route);
         int getListSize();
         void addTime(int time);
+        int getTime();
 
     private:
         id pack_id;

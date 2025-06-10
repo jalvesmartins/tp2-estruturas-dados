@@ -23,3 +23,7 @@ void Package::setRoute(List<int>& route) {
 void Package::addTime(int time) {
     this->pack_time += time;
 }
+
+int Package::getTime() {
+    return this->pack_time;
+}

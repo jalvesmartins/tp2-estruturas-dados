@@ -10,7 +10,8 @@ class Scheduler {
         ~Scheduler() = default;
 
         void scheduleEvent(int event_type, int post_time, Package* pack, Warehouse* origin, Warehouse* destination);
-        Event* removeEvent();
+        Event removeEvent();
+        int isEmpty();
 
     private:
         Heap scheduler;

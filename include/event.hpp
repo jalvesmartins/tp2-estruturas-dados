@@ -51,6 +51,8 @@ class Event {
             }
         }
 
+        Event(const Event& other) = default;
+
         ~Event() = default;
 
         int getTime();
@@ -61,6 +63,9 @@ class Event {
         void resetEvent();
 
         void printKey();
+        Package* getPack();
+
+        Event& operator=(const Event& other) = default;
 
     private:
         char key[14];

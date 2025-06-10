@@ -13,7 +13,7 @@ class Warehouse {
         id getId();
 
         void storePackage(int session_id, Package* pack);
-        Package* getPackage(int session_id, int id);
+        //Package* getPackage(int session_id, int id);
 
         void addSession(int edge_id);
         void removeSession(int edge_id);

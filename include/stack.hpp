@@ -10,7 +10,11 @@ struct Pack_Node;
 class Stack {
     public:
         Stack() : top(nullptr), size(0), id(0) {}
-        ~Stack();
+        Stack(const Stack& other); // Construtor de Cópia
+        ~Stack() {
+            clear();
+        }
+        Stack& operator=(const Stack& other); // Operador de Atribuição
 
         void push(Package* new_item);
         Package* pop();
