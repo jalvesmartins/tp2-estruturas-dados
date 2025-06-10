@@ -34,6 +34,7 @@ class Package {
         int getDestinationWarehouseId();
         void setRoute(List<int>& route);
         int getListSize();
+        void addTime(int time);
 
     private:
         id pack_id;

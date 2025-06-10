@@ -19,3 +19,7 @@ int Package::getDestinationWarehouseId() {
 void Package::setRoute(List<int>& route) {
     this->route = route;
 }
+
+void Package::addTime(int time) {
+    this->pack_time += time;
+}
