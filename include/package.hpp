@@ -33,7 +33,7 @@ class Package {
         int getOriginWarehouseId();
         int getDestinationWarehouseId();
         void setRoute(List<int>& route);
-        int getListSize();
+        int isRouteEmpty();
         void addTime(int time);
         int getTime();
 

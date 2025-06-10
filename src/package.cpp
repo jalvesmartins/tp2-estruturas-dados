@@ -27,3 +27,7 @@ void Package::addTime(int time) {
 int Package::getTime() {
     return this->pack_time;
 }
+
+int Package::isRouteEmpty() {
+    return route.getHead() == nullptr;
+}
