@@ -18,7 +18,7 @@ Stack::Stack(const Stack& other)
 
     // 1. Percorre a pilha original e guarda os ponteiros em ordem inversa
     while (current_other != nullptr) {
-        temp_storage[index++] = &current_other->pack;
+        temp_storage[index++] = current_other->pack;
         current_other = current_other->next;
     }
 
@@ -32,7 +32,7 @@ Stack::Stack(const Stack& other)
 void Stack::push(Package* new_item) {
     Pack_Node* new_node = new Pack_Node;
 
-    new_node->pack = *new_item;
+    new_node->pack = new_item;
     new_node->next = this->top;
     top = new_node;
 
@@ -44,7 +44,7 @@ Package* Stack::pop() {
         throw "A pilha está vazia!";
 
     Pack_Node* deleted = top;
-    Package* removed = &(top->pack);
+    Package* removed = top->pack;
     top = top->next;
     delete deleted;
     size--;
@@ -95,7 +95,7 @@ Stack& Stack::operator=(const Stack& other) {
         Pack_Node* current_other = other.top;
         int index = 0;
         while (current_other != nullptr) {
-            temp_storage[index++] = &current_other->pack;
+            temp_storage[index++] = current_other->pack;
             current_other = current_other->next;
         }
         for (int i = index - 1; i >= 0; i--) {

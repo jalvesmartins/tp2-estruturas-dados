@@ -5,7 +5,7 @@
 #include "./warehouse.hpp"
 
 typedef struct Pack_Node {
-    Package pack;
+    Package* pack;
     Pack_Node* next;
     
     Pack_Node() : pack(), next(nullptr) {}

@@ -39,6 +39,14 @@ Package* Event::getPack() {
     return this->pack;
 }
 
+Warehouse* Event::getDestination() {
+    return this->destination;
+}
+
+Warehouse* Event::getOrigin() {
+    return this->origin;
+}
+
 // Retorna 'true' se 'a' tiver MAIOR prioridade que 'b'.
 bool operator<(Event& a, Event& b) {
     // 1. Critério primário: TEMPO

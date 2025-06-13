@@ -18,6 +18,8 @@ class Warehouse {
         void addSession(int edge_id);
         void removeSession(int edge_id);
 
+        List<Stack>& getSessions();
+
     private:
         id w_id;
         List<Stack> sessions;

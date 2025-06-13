@@ -62,6 +62,9 @@ class Event {
         int getType();
         void resetEvent();
 
+        Warehouse* getOrigin();
+        Warehouse* getDestination();
+
         void printKey();
         Package* getPack();
 

@@ -14,6 +14,7 @@ class Stack {
         ~Stack() {
             clear();
         }
+        
         Stack& operator=(const Stack& other); // Operador de Atribuição
 
         void push(Package* new_item);

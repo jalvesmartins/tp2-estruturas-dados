@@ -21,6 +21,30 @@ public:
         }
     }
 
+    List(const List<T>& other) {
+        // Primeiro, inicializamos a nova lista (a 'this') como vazia.
+        // Isso é crucial para garantir que ela comece em um estado limpo.
+        head = nullptr;
+        tail = nullptr;
+        size = 0;
+
+        // Criamos um ponteiro temporário para percorrer a lista 'other'
+        // (a lista original da qual estamos copiando).
+        L_Node* current_other = other.head;
+
+        // Percorremos a lista 'other' do início ao fim.
+        while (current_other != nullptr) {
+            // Para cada nó na lista original, pegamos seu dado e o adicionamos
+            // ao final da *nossa* nova lista.
+            // A função 'push_back' já cuida de criar um *novo* nó e alocar
+            // memória para ele, garantindo uma cópia profunda (deep copy).
+            this->push_back(current_other->data);
+
+            // Avançamos para o próximo nó na lista original.
+            current_other = current_other->next;
+        }
+    }
+
     void push_front(T& data) {
         L_Node* new_node = new L_Node(data);
         if (is_empty()) {
@@ -31,7 +55,7 @@ public:
             head = new_node;
         }
 
-        size++;
+        this->size++;
     }
 
     void push_back(T& data) {
@@ -44,7 +68,7 @@ public:
             tail = new_node;
         }
 
-        size++;
+        this->size++;
     }
 
     T pop_front() {
@@ -62,7 +86,7 @@ public:
         }
 
         delete temp_node;
-        size--;
+        this->size--;
         return value;
     }
 
@@ -86,7 +110,7 @@ public:
         }
 
         delete temp_node;
-        size--;
+        this->size--;
         return value;
     }
 

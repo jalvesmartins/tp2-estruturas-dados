@@ -20,8 +20,17 @@ void Package::setRoute(List<int>& route) {
     this->route = route;
 }
 
-void Package::addTime(int time) {
-    this->pack_time += time;
+void Package::popRoute() {
+    this->route.pop_front();
+}
+
+int Package::getRouteFront() {
+    int front = this->route.front();
+    return front;
+}
+
+void Package::setTime(int time) {
+    this->pack_time = time;
 }
 
 int Package::getTime() {
