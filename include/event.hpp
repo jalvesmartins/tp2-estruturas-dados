@@ -1,6 +1,7 @@
 #ifndef EVENT_HPP
 #define EVENT_HPP
 
+#include <cstring>
 #include "./package.hpp"
 #include "./warehouse.hpp"
 
@@ -68,7 +69,9 @@ class Event {
         void printKey();
         Package* getPack();
 
-        Event& operator=(const Event& other) = default;
+        char* getKey();
+
+        Event& operator=(Event& other) = default;
 
     private:
         char key[14];

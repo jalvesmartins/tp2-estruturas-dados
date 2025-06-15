@@ -9,9 +9,18 @@ class Scheduler {
         Scheduler(int maxsize) : scheduler(maxsize) {};
         ~Scheduler() = default;
 
-        void scheduleEvent(int event_type, int post_time, Package* pack, Warehouse* origin, Warehouse* destination);
-        Event removeEvent();
-        int isEmpty();
+        void scheduleEvent(int event_type, int post_time, Package* pack, Warehouse* origin, Warehouse* destination) {
+            Event* new_event = new Event(event_type, post_time, pack, origin, destination);
+            scheduler.insert(new_event);
+        }
+
+        Event removeEvent() {
+            return this->scheduler.remove();
+        }
+
+        int isEmpty() {
+            return scheduler.isEmpty();
+        };
 
     private:
         Heap scheduler;
