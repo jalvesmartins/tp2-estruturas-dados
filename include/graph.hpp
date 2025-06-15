@@ -29,7 +29,7 @@ class Graph {
         WHouse_Node* getGraph();
 
         void readNodes(int node_count);
-        void readEdges(int node_count);
+        void readEdges(int node_count, std::ifstream& inputFile);
 
         void insertNode();
         void insertEdge(int node, int edge);

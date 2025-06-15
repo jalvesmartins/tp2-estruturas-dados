@@ -26,4 +26,4 @@ clean-all:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
 
 run: all
-	./$(TARGET)
+	./$(TARGET) $(FILE)

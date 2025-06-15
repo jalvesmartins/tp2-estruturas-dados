@@ -1,5 +1,6 @@
 #include "../include/graph.hpp"
 #include <iostream>
+#include <fstream>
 
 int Graph::node_count = 0;
 
@@ -9,11 +10,11 @@ void Graph::readNodes(int node_count) {
     }
 }
 
-void Graph::readEdges(int node_count) {
+void Graph::readEdges(int node_count, std::ifstream& inputFile) {
     int warehouse = 0, edge_exists = 0;
     for (warehouse = 0; warehouse < node_count; warehouse++) {
         for (int columns = 0; columns < node_count; columns++) {
-            std::cin >> edge_exists;
+            inputFile >> edge_exists;
             if (edge_exists == 1) {
                 insertEdge(warehouse, columns);
             }
