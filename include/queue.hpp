@@ -3,16 +3,14 @@
 
 #include "./list.hpp"
 #include "./graph.hpp"
+#include "./node.hpp"
 
-struct Q_Node {
-    int id;
-    Q_Node* next;
-
-    Q_Node(int id) : id(id), next(nullptr) {}
-};
+// Renomeia o nó de inteiros.
+using Q_Node = Int_Node;
 
 class Queue {
     public:
+        // Construtores e destrutores.
         Queue() : head(nullptr), tail(nullptr) {}
         ~Queue() {
             while (!isEmpty()) {
@@ -20,6 +18,7 @@ class Queue {
             }
         }
 
+        // Enfileira um item.
         void enqueue(int id) {
             Q_Node* new_node = new Q_Node(id);
             if (isEmpty()) {
@@ -30,11 +29,12 @@ class Queue {
             }
         };
         
+        // Desenfileira um item.
         int dequeue() {
             if (isEmpty()) return -1;
 
             Q_Node* aux_node = head;
-            int removed = aux_node->id;
+            int removed = aux_node->e_id;
             head = head->next;
 
             if (head == nullptr) {
@@ -45,13 +45,14 @@ class Queue {
             return removed;
         };
 
+        // Verifica se a fila está vazia.
         int isEmpty() {
             return head == nullptr;
         };
 
     private:
-        Q_Node* head;
-        Q_Node* tail;
+        Q_Node* head;   // Início da fila.
+        Q_Node* tail;   // Fim da fila.
 };
 
 #endif

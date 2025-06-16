@@ -25,20 +25,6 @@ char* Event::getKey() {
     return this->key;
 }
 
-void Event::resetEvent() {
-    strcpy(this->key, "0000000000000");
-    this->pack = nullptr;
-    this->origin = nullptr;
-    this->destination = nullptr;
-    return;
-}
-
-void Event::printKey() {
-    // A variável 'key' é um array de char (C-style string),
-    // então podemos passá-la diretamente para o std::cout.
-    std::cout << "Event Key: " << this->key;
-}
-
 Package* Event::getPack() {
     return this->pack;
 }
@@ -51,6 +37,15 @@ Warehouse* Event::getOrigin() {
     return this->origin;
 }
 
+void Event::resetEvent() {
+    strcpy(this->key, "0000000000000");
+    this->pack = nullptr;
+    this->origin = nullptr;
+    this->destination = nullptr;
+    return;
+}
+
+// Compara o valor numérico das chaves.
 bool operator<(Event& a, Event& b) {
     return strcmp(a.getKey(), b.getKey()) < 0;
 }

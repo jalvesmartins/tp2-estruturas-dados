@@ -6,6 +6,7 @@
 
 class Transport {
     public:
+        // Construtores e destrutor.
         Transport(int transport_capacity ,int transport_latency, int transport_gap,
             int removal_cost, int warehouse_count) :
 
@@ -13,25 +14,33 @@ class Transport {
             removal_cost(removal_cost), warehouse_count(warehouse_count), packs_delivered(0) {}
 
         ~Transport() = default;
-
-        void calculateRoute(Graph* graph, Package* pack);
-        void executeEvent(Scheduler* admin, Graph* graph);
-        void createTransports(Scheduler* admin, Graph* graph);
-        void createNextEvent(Scheduler* admin, Graph* graph, Package* pack);
-        void transportPackages(Scheduler* admin, Graph* graph, int transport_capacity, int time, Warehouse* origin, Warehouse* destination);
+        
+        // Getters dos atrubutos
         int getDeliveredPacks();
         int getTime();
 
-        void addTime(int time);
-        void addTimePack(Package* pack, int time);
+        // Calcula a rota de um pacote, implementando o algoritmo BFS.
+        void calculateRoute(Graph* graph, Package* pack);
+
+        // Executa um evento. Trata ambos os tipos de evento, usando um switch case.
+        void executeEvent(Scheduler* admin, Graph* graph);
+
+        // Cria e escalona os primeiros eventos de transportes entre todas as arestas.
+        void createTransports(Scheduler* admin, Graph* graph);
         
+        // Executa o transporte entre duas arestas. Desempilha e reempilha os pacotes,
+        // escalona as chegadas e registra as estatísticas.
+        void transportPackages(Scheduler* admin, Graph* graph, int transport_capacity, int time, Warehouse* origin, Warehouse* destination);
+        
+        // Adiciona tempo ao horário do transportador.
+        void addTime(int time);
 
     private:
-        int time;               //Horário
-        int transport_capacity; //Capacidade do transporte.
-        int transport_latency;  //Latência do transporte.
-        int transport_gap;      //Intervalo entre um transporte e o outro.
-        int removal_cost;       //Custo de remoção de um pacote;
-        int warehouse_count;    //Número total de armazéns.
-        int packs_delivered;
+        int time;               // Horário
+        int transport_capacity; // Capacidade do transporte.
+        int transport_latency;  // Latência do transporte.
+        int transport_gap;      // Intervalo entre um transporte e o outro.
+        int removal_cost;       // Custo de remoção de um pacote;
+        int warehouse_count;    // Número total de armazéns.
+        int packs_delivered;    // Número de pacotes entregues.
 };

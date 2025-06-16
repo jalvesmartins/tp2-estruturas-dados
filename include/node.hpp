@@ -4,6 +4,7 @@
 #include "./package.hpp"
 #include "./warehouse.hpp"
 
+// Nó de pacotes.
 typedef struct Pack_Node {
     Package* pack;
     Pack_Node* next;
@@ -11,18 +12,20 @@ typedef struct Pack_Node {
     Pack_Node() : pack(), next(nullptr) {}
 } Pack_Node;
 
-typedef struct Edge_Node {
+// Nó de inteiros.
+typedef struct Int_Node {
     id e_id;
-    Edge_Node* next;
+    Int_Node* next;
 
-    Edge_Node(int e_id) : e_id(e_id), next(nullptr) {}
-} Edge_Node;
+    Int_Node(int e_id) : e_id(e_id), next(nullptr) {}
+} Int_Node;
 
+// Nó de armazéns.
 typedef struct WHouse_Node {
     id n_id;
     Warehouse warehouse;
     WHouse_Node* next;
-    Edge_Node* edges;
+    Int_Node* edges;
     
     WHouse_Node(id n_id) : n_id(n_id), warehouse(n_id), next(nullptr), edges(nullptr) {}
 } WHouse_Node;

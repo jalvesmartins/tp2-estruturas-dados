@@ -20,6 +20,7 @@ enum packageStatus {
 
 class Package {
     public:
+        // Construtores e destrutor.
         Package() : pack_id(-1), status(NULO), post_date(0), origin_warehouse_id(-1),
                     destination_warehouse_id(-1), route(), pack_time(0) {}
 

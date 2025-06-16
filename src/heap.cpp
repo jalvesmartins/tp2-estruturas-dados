@@ -4,6 +4,7 @@ void Heap::insert(Event* new_event) {
     if (this->size == this->capacity) {
         return;
     }
+
     this->events[this->size] = *new_event;
     bottomHeapfy(this->size);
     this->size++;
@@ -39,6 +40,7 @@ int Heap::isEmpty() {
     if (this->size != 0) {
         return 0;
     }
+
     return 1;
 }
 
@@ -58,8 +60,10 @@ void Heap::topHeapfy(int index) {
     if (left >= this->size) return;
 
     int min;
+    
     if (right >= this->size) {
         min = left;
+
     } else {
         min = (events[left] < events[right]) ? left : right;
     }

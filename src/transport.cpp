@@ -9,6 +9,7 @@ int Transport::getTime() {
 }
 
 void Transport::calculateRoute(Graph* graph, Package* pack) {
+    //Implementação do BFS abaixo. Utiliza a queue.
     Queue queue;
     List<int> route;
 
@@ -16,14 +17,16 @@ void Transport::calculateRoute(Graph* graph, Package* pack) {
     int destination_id = pack->getDestinationWarehouseId();
     int size = this->warehouse_count;
 
-
+    // Cria os vetores de visitados e vetor dos pais dos nós.
     int* parents = new int[size + 1];
     bool* visited = new bool[size + 1];
+
     for (int i = 0; i <= size; ++i) {
         parents[i] = -1; // -1 significa que não tem pai
         visited[i] = false;
     }
 
+    // Começa com o armazém inicial, nesse caso, o armazém de chegada.
     queue.enqueue(origin_id);
     visited[origin_id] = true;
 
@@ -35,29 +38,34 @@ void Transport::calculateRoute(Graph* graph, Package* pack) {
         WHouse_Node* present_node = graph->findWHouseNode(whouse_id);  // Reutiliza a função de busca de nó
         if (present_node == nullptr) {
             // Se o nó não existe no grafo, imprima um aviso e continue
-            std::cerr << "AVISO: Armazém com ID " << whouse_id << " não encontrado no grafo." << std::endl;
+            std::cerr << "ERRO: Armazém com ID " << whouse_id << " não existe." << std::endl;
             continue;
         }
 
         Edge_Node* edge = present_node->edges;
+
+        // Enfileira os nós vizinhos e registra o pai do nó visitado.
         while (edge != nullptr) {
             id edge_id = edge->e_id;
+
             if (!visited[edge_id]) {
                 visited[edge_id] = true;
-                parents[edge_id] = whouse_id; // Registra de onde viemos
+                parents[edge_id] = whouse_id;
                 queue.enqueue(edge_id);
             }
+
             edge = edge->next;
         }
     }
 
+    // Retorna nulo caso não haja caminho
     if (parents[destination_id] == -1) {
         delete[] parents;
         delete[] visited;
-        return; // Retorna nulo para indicar que não há caminho
+        return;
     }
         for (int i = destination_id; i != -1 && i != pack->getOriginWarehouseId(); i = parents[i]) {
-        // Adiciona o novo nó no INÍCIO da lista, o que já inverte a ordem para nós
+        // Após encontrar o nó target, caminha o grafo pra trás e adiciona os nós no caminho na lista de rota.
         route.push_front(i);
     }
 
@@ -73,17 +81,6 @@ void Transport::addTime(int time) {
     this->time += time;
 }
 
-/*void Transport::createNextEvent(Scheduler* admin, Graph* graph, Package* pack) {
-    if(pack->isRouteEmpty() == 0) {
-                pack->popRoute();
-                int next_warehouse = pack->getRouteFront();
-
-                admin->scheduleEvent(2, time, nullptr, 
-                &(graph->findWHouseNode(pack->getOriginWarehouseId())->warehouse), 
-                &(graph->findWHouseNode(pack->getDestinationWarehouseId())->warehouse));
-    }
-}*/
-
 void Transport::executeEvent(Scheduler* admin, Graph* graph) {
     // Remove evento do heap.
     Event executed_event = admin->removeEvent();
@@ -91,6 +88,7 @@ void Transport::executeEvent(Scheduler* admin, Graph* graph) {
     // Switch case no tipo de evento.
     switch (executed_event.getType()) {
 
+        // Evento de armazenamento.
         case 1: {
             Package* pack = executed_event.getPack();
 
@@ -102,8 +100,8 @@ void Transport::executeEvent(Scheduler* admin, Graph* graph) {
                 executed_event.getTime(), pack->getId(), executed_event.getOriginId());
 
                 delete pack;
-
-                this->packs_delivered++;
+                
+                this->packs_delivered++;    // Aumenta o contador de pacotes entregues.
 
             // Caso contrário, armazena o pacote normalmente.
             } else {
@@ -121,14 +119,18 @@ void Transport::executeEvent(Scheduler* admin, Graph* graph) {
             break;
         }
 
+        // Evento de transporte.
         case 2: {
             
+            // Chama o transporte entre os armazéns do evento.
             transportPackages(admin, graph, executed_event.getTime(), transport_capacity, executed_event.getOrigin(), executed_event.getDestination());
 
+            // Escalona o próximo transporte entre esses dois armazéns. 
             admin->scheduleEvent(2, executed_event.getTime() + transport_gap, nullptr, executed_event.getOrigin(), executed_event.getDestination());
 
             break;
         }
+
         default: { break; }
     }
 }
@@ -137,6 +139,7 @@ void Transport::createTransports(Scheduler* admin, Graph* graph) {
     WHouse_Node* aux_warehouse = graph->getGraph();
     Edge_Node* aux_edge = nullptr;
 
+    // Escalona os transportes para todas as arestas.
     for (int i = 0; i < warehouse_count; i++) {
         aux_edge = aux_warehouse->edges;
         while (aux_edge != nullptr) {
@@ -150,7 +153,7 @@ void Transport::createTransports(Scheduler* admin, Graph* graph) {
 }
 
 void Transport::transportPackages(Scheduler* admin, Graph* graph, int time, int transport_capacity, Warehouse* origin, Warehouse* destination) {
-    int session_time = time;
+    int session_time = time;    // Tempo interno desse transporte.
 
     // Cria a pilha e nó auxiliar.
     Stack aux_stack;
@@ -196,7 +199,9 @@ void Transport::transportPackages(Scheduler* admin, Graph* graph, int time, int 
 
         // Atualiza a rota dos pacotes.
         target_pack->popRoute();
-
+        
+        // Se a rota está vazia, o próximo destino é o de chegada. Essa verificação
+        // evita uma ação de pop em uma lista vazia.
         if (target_pack->isRouteEmpty()) {
 
             session_time += transport_latency;
@@ -216,7 +221,7 @@ void Transport::transportPackages(Scheduler* admin, Graph* graph, int time, int 
         // Atualiza o tempo para o tempo de chegada no próximo armazém.
         session_time += transport_latency;
         
-        // Marca o evento.
+        // Escalona o evento.
         admin->scheduleEvent(1, session_time, target_pack, destination, &graph->findWHouseNode(next_session)->warehouse);
 
         // Volta o tempo para o atual.

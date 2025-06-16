@@ -3,33 +3,45 @@
 
 #include "./package.hpp"
 
+// Declaração das classes, para evitar erros de include.
 class Package;
-
 struct Pack_Node;
 
 class Stack {
     public:
-        Stack() : top(nullptr), size(0), id(0) {}
-        Stack(const Stack& other); // Construtor de Cópia
-        ~Stack() {
+        // Construtores e destrutor.
+        Stack() : top(nullptr), size(0), id(0) {} 
+        Stack(const Stack& other);
+        ~Stack() { 
             clear();
         }
         
         Stack& operator=(const Stack& other); // Operador de Atribuição
 
-        void push(Package* new_item);
-        Package* pop();
-        void clear();
-        void setId(int id);
+        // Getters dos atributos.
         int getId();
         Pack_Node* getTop();
         int getSize();
+
+        // Setter do id.
+        void setId(int id);
+
+        // Empilha um item.
+        void push(Package* new_item);
+
+        // Desempilha um item.
+        Package* pop();
+
+        // Desempilha todos os itens.
+        void clear();
+
+        // Verifica se a pilha está vazia.
         int isEmpty();
 
     private:
-        Pack_Node* top;
-        int size;
-        int id;
+        Pack_Node* top; // Nó do topo da pilha.
+        int size;       // Tamanho da pilha.
+        int id;         // id da pulha.
 }; 
 
 #endif

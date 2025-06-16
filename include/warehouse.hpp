@@ -5,6 +5,7 @@
 
 class Warehouse {
     public:
+        // Construtores e destrutor.
         Warehouse() : w_id(-1), sessions() {}
         Warehouse(int id) : w_id(id), sessions() {}
         ~Warehouse() {
@@ -13,20 +14,25 @@ class Warehouse {
             }
         }
 
-        void setId(id id);
+        // Getters
         id getId();
-
-        void storePackage(int session_id, Package* pack);
-        //Package* getPackage(int session_id, int id);
-
-        void addSession(int edge_id);
-        void removeSession(int edge_id);
-
         List<Stack>& getSessions();
 
+        // Setter do id.
+        void setId(id id);
+
+        // Armazena o pacote em uma seção passada por parâmetro.
+        void storePackage(int session_id, Package* pack);
+
+        // Adiciona uma seção ao armazém.
+        void addSession(int edge_id);
+
+        // Remove uma seção do armazém.
+        void removeSession(int edge_id);
+
     private:
-        id w_id;
-        List<Stack> sessions;
+        id w_id;    // id do armazém.
+        List<Stack> sessions;   // Lista de pilhas de pacotes, chamadas de seções.
 };
 
 #endif

@@ -29,17 +29,16 @@ WHouse_Node* Graph::getGraph() {
 void Graph::insertNode() {
     WHouse_Node* new_node = new WHouse_Node(node_count);
     this->node_count++;
-
     if (head == nullptr) {
         head = new_node;
         tail = new_node;
+
     } else {
         tail->next = new_node;
         tail = new_node;
     }
 };
 
-//Por enquanto, adiciona apenas 1 aresta. Adaptar dependendo da entrada.
 void Graph::insertEdge(int n_id, int e_id) {
     WHouse_Node* aux_node = head;
 
@@ -54,7 +53,6 @@ void Graph::insertEdge(int n_id, int e_id) {
 
     Edge_Node* new_edge = new Edge_Node(e_id);
     Edge_Node* aux_edge = aux_node->edges;
-
     if(aux_edge == nullptr) {
         aux_node->edges = new_edge;
 
@@ -62,7 +60,7 @@ void Graph::insertEdge(int n_id, int e_id) {
         new_edge->next = aux_edge;
         aux_node->edges = new_edge;
     }
-
+    
     aux_node->warehouse.addSession(e_id);
     
     return;

@@ -4,8 +4,12 @@
 #include "./node.hpp"
 #include "warehouse.hpp"
 
+// Renomeia o nó de inteiros.
+using Edge_Node = Int_Node;
+
 class Graph {
     public:
+        // Construtor e destrutor.
         Graph() : head(nullptr), tail(nullptr) {};
 
         ~Graph() {
@@ -26,20 +30,28 @@ class Graph {
             }
         };
 
+        // Retorna o primeiro nó do grafo.
         WHouse_Node* getGraph();
 
+        // Faz a leitura dos nós.
         void readNodes(int node_count);
+
+        // Faz a leitura das arestas.
         void readEdges(int node_count, std::ifstream& inputFile);
 
+        // Insere o nó.
         void insertNode();
+
+        // Insere a aresta.
         void insertEdge(int node, int edge);
 
+        // Encontra um nó específico.
         WHouse_Node* findWHouseNode(int w_id);
 
     private:
-        static int node_count;
-        WHouse_Node* head;
-        WHouse_Node* tail;
+        static int node_count;  // Contador de nós.
+        WHouse_Node* head;      // Primeiro nó.
+        WHouse_Node* tail;      // Último nó.
 };
 
 #endif
