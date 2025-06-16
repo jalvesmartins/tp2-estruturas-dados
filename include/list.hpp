@@ -2,42 +2,42 @@
 #define LIST_HPP
 
 #include <iostream>
-#include <stdexcept> // Required for std::runtime_error
 
+// Lista encadeada usando template.
 template<typename T>
 class List {
 public:
+
+    // Nó específico da lista, utilizando template.
     struct L_Node {
-        T data;
-        L_Node* next;
-        L_Node(T& data_ref) : data(data_ref), next(nullptr) {}
+        T data; // Dado em si.
+        L_Node* next; // Ponteiro para o próximo nó.
+
+        L_Node(T& data_ref) : data(data_ref), next(nullptr) {} // Construtor.
     };
 
     List() : head(nullptr), tail(nullptr) {}
 
-    ~List() {
+    // Destrutor.
+    ~List() { 
         while (!is_empty()) {
             pop_front();
         }
     }
 
+    // Construtor de cópia.
     List(const List<T>& other) {
-        // Primeiro, inicializamos a nova lista (a 'this') como vazia.
-        // Isso é crucial para garantir que ela comece em um estado limpo.
+        // Inicializa a lista como vazia.
         head = nullptr;
         tail = nullptr;
         size = 0;
 
         // Criamos um ponteiro temporário para percorrer a lista 'other'
-        // (a lista original da qual estamos copiando).
         L_Node* current_other = other.head;
 
         // Percorremos a lista 'other' do início ao fim.
         while (current_other != nullptr) {
-            // Para cada nó na lista original, pegamos seu dado e o adicionamos
-            // ao final da *nossa* nova lista.
-            // A função 'push_back' já cuida de criar um *novo* nó e alocar
-            // memória para ele, garantindo uma cópia profunda (deep copy).
+            // Para cada nó na lista original, pegamos seu dado e o adicionamos ao final da *nossa* nova lista.
             this->push_back(current_other->data);
 
             // Avançamos para o próximo nó na lista original.
@@ -45,6 +45,7 @@ public:
         }
     }
 
+    // Adiciona um nó na frente da lista.
     void push_front(T& data) {
         L_Node* new_node = new L_Node(data);
         if (is_empty()) {
@@ -54,15 +55,17 @@ public:
             new_node->next = head;
             head = new_node;
         }
-
         this->size++;
     }
 
+    // Adiciona um nó ao fim da lista.
     void push_back(T& data) {
         L_Node* new_node = new L_Node(data);
+
         if (is_empty()) {
             head = new_node;
             tail = new_node;
+
         } else {
             tail->next = new_node;
             tail = new_node;
@@ -71,16 +74,20 @@ public:
         this->size++;
     }
 
+    // Retira um nó do início da lista.
     T pop_front() {
         if (is_empty()) {
-            throw std::runtime_error("List is empty");
+            std::cerr << "ERRO: Tentativa de pop_front() em uma lista vazia." << std::endl;
+            exit(1);
         }
+
         L_Node* temp_node = head;
         T value = head->data;
 
         if (head == tail) {
             head = nullptr;
             tail = nullptr;
+
         } else {
             head = head->next;
         }
@@ -90,21 +97,27 @@ public:
         return value;
     }
 
+    // Retira um nó do fim da lista.
     T pop_back() {
         if (is_empty()) {
-            throw std::runtime_error("List is empty");
+            std::cerr << "ERRO: Tentativa de pop_back() em uma lista vazia." << std::endl;
+            exit(1);
         }
+
         L_Node* temp_node = tail;
         T value = tail->data;
 
         if (head == tail) {
             head = nullptr;
             tail = nullptr;
+
         } else {
             L_Node* current = head;
+
             while (current->next != tail) {
                 current = current->next;
             }
+
             tail = current;
             tail->next = nullptr;
         }
@@ -114,16 +127,20 @@ public:
         return value;
     }
 
+    // Retorna o endereço do primeiro elemento.
     T& front() {
         if (is_empty()) {
-            throw std::runtime_error("List is empty");
+            std::cerr << "ERRO: Tentativa de front() em uma lista vazia." << std::endl;
+            exit(1);
         }
         return head->data;
     }
 
+    // Retorna o endereço do último elemento.
     T& back() {
         if (is_empty()) {
-            throw std::runtime_error("List is empty");
+            std::cerr << "ERRO: Tentativa de back() em uma lista vazia." << std::endl;
+            exit(1);
         }
         return tail->data;
     }
@@ -132,19 +149,23 @@ public:
         return this->head;
     }
 
-    T& getData() {
+    // Retorna o load do primeiro elemento.
+    T& getFrontData() {
         if (is_empty()) {
-            throw std::runtime_error("List is empty");
+            std::cerr << "ERRO: Tentativa de getFrontData() em uma lista vazia." << std::endl;
+            exit(1);
         }
         return this->head->data;
     }
 
+    // Verifica se a lista está vazia.
     bool is_empty() const {
         return head == nullptr;
     }
 
+    // Overload do operador =. Copia uma lista para a outra.
     List<T>& operator=(const List<T>& other) {
-        // Proteção contra auto-atribuição (ex: minhaLista = minhaLista)
+        // Proteção contra auto-atribuição.
         if (this == &other) {
             return *this;
         }
@@ -165,9 +186,9 @@ public:
     }
 
 private:
-    L_Node* head;
-    L_Node* tail;
-    int size;
+    L_Node* head; // Nó "cabeça" da lista.
+    L_Node* tail; // Nó "rabo" da lista.
+    int size;     // Tamanho da lista.
 };
 
 #endif

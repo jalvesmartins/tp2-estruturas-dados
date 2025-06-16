@@ -7,7 +7,11 @@ class Warehouse {
     public:
         Warehouse() : w_id(-1), sessions() {}
         Warehouse(int id) : w_id(id), sessions() {}
-        ~Warehouse() {}
+        ~Warehouse() {
+            while (!getSessions().is_empty()) {
+                getSessions().pop_front();
+            }
+        }
 
         void setId(id id);
         id getId();

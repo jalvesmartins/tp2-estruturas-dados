@@ -10,8 +10,8 @@ class Scheduler {
         ~Scheduler() = default;
 
         void scheduleEvent(int event_type, int post_time, Package* pack, Warehouse* origin, Warehouse* destination) {
-            Event* new_event = new Event(event_type, post_time, pack, origin, destination);
-            scheduler.insert(new_event);
+            Event new_event = Event(event_type, post_time, pack, origin, destination);
+            scheduler.insert(&new_event);
         }
 
         Event removeEvent() {

@@ -74,9 +74,9 @@ id Warehouse::getId() {
 }
 
 void Warehouse::addSession(int edge_id) {
-    Stack* new_session = new Stack;
-    new_session->setId(edge_id);
-    sessions.push_back(*new_session);
+    Stack new_session;
+    new_session.setId(edge_id);
+    sessions.push_back(new_session);
 }
 
 List<Stack>& Warehouse::getSessions() {
