@@ -105,15 +105,15 @@ void Transport::executeEvent(Scheduler* admin, Graph* graph) {
 
             // Caso contrário, armazena o pacote normalmente.
             } else {
-                WHouse_Node* warehouse = graph->findWHouseNode(executed_event.getOriginId());
+                Warehouse* warehouse = executed_event.getOrigin();
                 int session = executed_event.getDestinationId();
 
                 // Armazena o pacote.
-                warehouse->warehouse.storePackage(session, pack);
+                warehouse->storePackage(session, pack);
 
                 //Imprime estatísticas.
                 printf("%07d pacote %03d armazenado em %03d na secao %03d\n",
-                executed_event.getTime(), pack->getId(), warehouse->n_id, session);
+                executed_event.getTime(), pack->getId(), warehouse->getId(), session);
             }
 
             break;
