@@ -20,8 +20,8 @@ public:
 
     // Destrutor.
     ~List() { 
-        while (!is_empty()) {
-            pop_front();
+        while (!isEmpty()) {
+            popFront();
         }
     }
 
@@ -38,7 +38,7 @@ public:
         // Percorremos a lista 'other' do início ao fim.
         while (current_other != nullptr) {
             // Para cada nó na lista original, pegamos seu dado e o adicionamos ao final da *nossa* nova lista.
-            this->push_back(current_other->data);
+            this->pushBack(current_other->data);
 
             // Avançamos para o próximo nó na lista original.
             current_other = current_other->next;
@@ -46,9 +46,9 @@ public:
     }
 
     // Adiciona um nó na frente da lista.
-    void push_front(T& data) {
+    void pushFront(T& data) {
         L_Node* new_node = new L_Node(data);
-        if (is_empty()) {
+        if (isEmpty()) {
             head = new_node;
             tail = new_node;
         } else {
@@ -59,10 +59,10 @@ public:
     }
 
     // Adiciona um nó ao fim da lista.
-    void push_back(T& data) {
+    void pushBack(T& data) {
         L_Node* new_node = new L_Node(data);
 
-        if (is_empty()) {
+        if (isEmpty()) {
             head = new_node;
             tail = new_node;
 
@@ -75,8 +75,8 @@ public:
     }
 
     // Retira um nó do início da lista.
-    T pop_front() {
-        if (is_empty()) {
+    T popFront() {
+        if (isEmpty()) {
             std::cerr << "ERRO: Tentativa de pop_front() em uma lista vazia." << std::endl;
             exit(1);
         }
@@ -98,8 +98,8 @@ public:
     }
 
     // Retira um nó do fim da lista.
-    T pop_back() {
-        if (is_empty()) {
+    T popBack() {
+        if (isEmpty()) {
             std::cerr << "ERRO: Tentativa de pop_back() em uma lista vazia." << std::endl;
             exit(1);
         }
@@ -129,7 +129,7 @@ public:
 
     // Retorna o endereço do primeiro elemento.
     T& front() {
-        if (is_empty()) {
+        if (isEmpty()) {
             std::cerr << "ERRO: Tentativa de front() em uma lista vazia." << std::endl;
             exit(1);
         }
@@ -138,7 +138,7 @@ public:
 
     // Retorna o endereço do último elemento.
     T& back() {
-        if (is_empty()) {
+        if (isEmpty()) {
             std::cerr << "ERRO: Tentativa de back() em uma lista vazia." << std::endl;
             exit(1);
         }
@@ -151,7 +151,7 @@ public:
 
     // Retorna o load do primeiro elemento.
     T& getFrontData() {
-        if (is_empty()) {
+        if (isEmpty()) {
             std::cerr << "ERRO: Tentativa de getFrontData() em uma lista vazia." << std::endl;
             exit(1);
         }
@@ -159,7 +159,7 @@ public:
     }
 
     // Verifica se a lista está vazia.
-    bool is_empty() const {
+    bool isEmpty() const {
         return head == nullptr;
     }
 
@@ -171,14 +171,14 @@ public:
         }
 
         // Limpa a lista atual para não vazar memória
-        while (!is_empty()) {
-            pop_front();
+        while (!isEmpty()) {
+            popFront();
         }
 
         // Copia os elementos da outra lista (mesma lógica do construtor de cópia)
         L_Node* current_other = other.head;
         while (current_other != nullptr) {
-            this->push_back(current_other->data);
+            this->pushBack(current_other->data);
             current_other = current_other->next;
         }
 

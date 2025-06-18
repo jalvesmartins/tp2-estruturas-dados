@@ -66,7 +66,7 @@ void Transport::calculateRoute(Graph* graph, Package* pack) {
     }
         for (int i = destination_id; i != -1 && i != pack->getOriginWarehouseId(); i = parents[i]) {
         // Após encontrar o nó target, caminha o grafo pra trás e adiciona os nós no caminho na lista de rota.
-        route.push_front(i);
+        route.pushFront(i);
     }
 
     // Deleta os vetores alocados

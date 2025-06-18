@@ -98,7 +98,7 @@ Stack& Stack::operator=(const Stack& other) {
             this->push(temp_storage[i]);
         }
     }
-
+ 
     // Retorna a pilha.
     return *this;
 }

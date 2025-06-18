@@ -6,7 +6,7 @@
 #include "./node.hpp"
 
 // Renomeia o nó de inteiros.
-using Q_Node = Int_Node;
+using Q_Node = Int_Node; 
 
 class Queue {
     public:

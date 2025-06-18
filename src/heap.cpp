@@ -36,7 +36,7 @@ Event* Heap::getSucessorDir(int index) {
     return &this->events[right];
 }
 
-int Heap::isEmpty() {
+int Heap::isEmpty() { 
     if (this->size != 0) {
         return 0;
     }

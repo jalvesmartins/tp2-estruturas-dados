@@ -35,7 +35,7 @@ Warehouse* Event::getDestination() {
 
 Warehouse* Event::getOrigin() {
     return this->origin;
-}
+} 
 
 void Event::resetEvent() {
     strcpy(this->key, "0000000000000");

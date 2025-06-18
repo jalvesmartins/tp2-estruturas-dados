@@ -3,7 +3,7 @@
 
 #include <cstring>
 #include "./package.hpp"
-#include "./warehouse.hpp"
+#include "./warehouse.hpp" 
 
 class Event {
     public:
@@ -69,7 +69,7 @@ class Event {
         int getDestinationId();
         Warehouse* getOrigin();
         Warehouse* getDestination();
-        int getPackId();
+        int getPackId(); 
         Package* getPack();
 
         // Reseta o evento.

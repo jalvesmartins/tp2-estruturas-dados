@@ -63,7 +63,7 @@ void Graph::insertEdge(int n_id, int e_id) {
     
     aux_node->warehouse.addSession(e_id);
     
-    return;
+    return; 
 };
 
 WHouse_Node* Graph::findWHouseNode(int w_id) {

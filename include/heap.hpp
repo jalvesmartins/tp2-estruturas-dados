@@ -26,7 +26,7 @@ public:
     Event* getSucessorDir(int index);
 
     // Insere um evento.
-    void insert(Event* new_event);
+    void insert(Event* new_event); 
 
     // Remove um evento.
     Event remove();

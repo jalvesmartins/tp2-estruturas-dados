@@ -17,7 +17,7 @@ class Transport {
         
         // Getters dos atrubutos
         int getDeliveredPacks();
-        int getTime();
+        int getTime(); 
 
         // Calcula a rota de um pacote, implementando o algoritmo BFS.
         void calculateRoute(Graph* graph, Package* pack);

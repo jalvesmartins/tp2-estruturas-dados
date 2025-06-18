@@ -22,7 +22,7 @@ void Warehouse::storePackage(int session, Package* pack) {
 void Warehouse::addSession(int edge_id) {
     Stack new_session;
     new_session.setId(edge_id);
-    sessions.push_back(new_session);
+    sessions.pushBack(new_session);
 }
 
 List<Stack>& Warehouse::getSessions() {

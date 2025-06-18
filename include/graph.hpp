@@ -28,7 +28,7 @@ class Graph {
         
                 aux_node = next_node;
             }
-        };
+        }; 
 
         // Retorna o primeiro nó do grafo.
         WHouse_Node* getGraph();

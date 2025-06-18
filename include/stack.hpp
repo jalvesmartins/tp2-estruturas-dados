@@ -32,7 +32,7 @@ class Stack {
         // Desempilha um item.
         Package* pop();
 
-        // Desempilha todos os itens.
+        // Desempilha e deleta todos os itens.
         void clear();
 
         // Verifica se a pilha está vazia.

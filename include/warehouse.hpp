@@ -9,8 +9,8 @@ class Warehouse {
         Warehouse() : w_id(-1), sessions() {}
         Warehouse(int id) : w_id(id), sessions() {}
         ~Warehouse() {
-            while (!getSessions().is_empty()) {
-                getSessions().pop_front();
+            while (!getSessions().isEmpty()) {
+                getSessions().popFront();
             }
         }
 
@@ -26,9 +26,6 @@ class Warehouse {
 
         // Adiciona uma seção ao armazém.
         void addSession(int edge_id);
-
-        // Remove uma seção do armazém.
-        void removeSession(int edge_id);
 
     private:
         id w_id;    // id do armazém.

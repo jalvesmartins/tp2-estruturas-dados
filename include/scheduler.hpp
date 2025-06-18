@@ -8,7 +8,7 @@ class Scheduler {
     public:
         // Construtores e destrutor.
         Scheduler(int maxsize) : scheduler(maxsize) {};
-        ~Scheduler() = default;
+        ~Scheduler() = default; 
 
         // Adiciona um evento no heap.
         void scheduleEvent(int event_type, int post_time, Package* pack, Warehouse* origin, Warehouse* destination) {
