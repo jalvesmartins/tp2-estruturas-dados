@@ -14,49 +14,53 @@
 
 [cite_start]O projeto foi modularizado em diversas classes e Tipos Abstratos de Dados (TADs) para garantir organização e encapsulamento.  As principais estruturas são:
 
-* [cite_start]**`Package`**: Representa os pacotes, armazenando suas informações básicas e a rota a ser seguida. 
-* [cite_start]**`Stack`**: Simula as pilhas de armazenamento dentro dos armazéns, seguindo a lógica LIFO (Last-In, First-Out), fundamental para a mecânica inspirada em Hanói. 
-* [cite_start]**`List`**: Uma lista encadeada genérica (usando templates) para armazenar diferentes tipos de dados de forma eficiente. 
-* [cite_start]**`Queue`**: Fila convencional utilizada para a implementação do algoritmo BFS para o cálculo de rotas. 
-* [cite_start]**`Warehouse`**: Representa um armazém, que contém um ID e uma lista de seções, onde cada seção é uma pilha (`Stack`) de pacotes destinada a um armazém adjacente. 
-* [cite_start]**`Graph`**: Modela a topologia da rede de armazéns usando uma lista de adjacências, onde cada nó representa um armazém. 
-* [cite_start]**`Event`**: Define os eventos da simulação (armazenamento ou transporte), que são a base para o funcionamento do escalonador. 
-* [cite_start]**`Heap`**: Um *min-heap* que funciona como a estrutura central do escalonador, ordenando os eventos por uma chave que considera o tempo e o tipo do evento. 
-* [cite_start]**`Scheduler`**: Uma camada de abstração que encapsula o `Heap` para gerenciar a fila de eventos. 
-* **`Transport`**: A classe orquestradora do sistema. [cite_start]É responsável por gerenciar o tempo, calcular rotas, executar e escalonar novos eventos, e coletar estatísticas. 
+* [cite_start]**`Package`**: Classe que representa os pacotes, armazenando suas informações e a rota a ser seguida. 
+* [cite_start]**`Stack`**: TAD central da implementação, simula as pilhas de armazenamento nos armazéns, seguindo a lógica LIFO (Last-In, First-Out), fundamental para a mecânica inspirada em Hanói. 
+* [cite_start]**`List`**: Uma lista encadeada genérica (usando templates) que facilita a inserção e remoção de elementos no início, operação frequente no sistema. 
+* [cite_start]**`Queue`**: Fila convencional utilizada para a implementação do algoritmo BFS durante o cálculo de rotas no grafo. 
+* [cite_start]**`Warehouse`**: Representa um armazém, que contém um ID e uma lista de seções ("sessions"), onde cada seção é uma pilha (`Stack`) de pacotes destinada a um armazém adjacente. 
+* [cite_start]**`Graph`**: Modela a topologia da rede de armazéns.  [cite_start]Embora a entrada seja uma matriz de adjacência, a implementação interna utiliza uma lista de adjacências para facilitar a manipulação dos transportes. 
+* [cite_start]**`Event`**: Classe que representa os eventos da simulação (armazenamento ou transporte), que são a base para o funcionamento do escalonador. 
+* [cite_start]**`Heap`**: Um *min-heap* de eventos, que constitui a base do escalonador.  [cite_start]Ele ordena os eventos de forma crescente por uma chave, garantindo que o próximo evento a ser executado seja sempre o de "menor" valor (mais próximo no tempo). 
+* [cite_start]**`Scheduler`**: Uma camada de encapsulamento que utiliza o `Heap` para gerenciar a adição e remoção de eventos. 
+* [cite_start]**`Transport`**: A classe orquestradora do sistema, responsável por gerenciar o tempo, calcular rotas (via BFS), executar os eventos e escalonar novos eventos, além de registrar todas as estatísticas. 
 
 ## 3. Fluxo de Execução do Programa
 
 1.  [cite_start]**Inicialização**: O programa lê os parâmetros iniciais, como a capacidade de transporte, intervalos, e a topologia da rede de armazéns (fornecida como uma matriz de adjacência).  [cite_start]Em seguida, instancia o Grafo, o Escalonador e o Transportador. 
 2.  [cite_start]**Leitura dos Pacotes**: O sistema lê os dados de cada pacote (ID, origem, destino, tempo de chegada). 
-3.  [cite_start]**Cálculo de Rota**: Para cada pacote, a rota mais curta é calculada usando o algoritmo **BFS** sobre o grafo de armazéns. 
-4.  [cite_start]**Escalonamento Inicial**: A chegada de cada pacote em seu armazém de origem é escalonada como um evento inicial.  [cite_start]Além disso, o primeiro evento de transporte para cada rota (aresta do grafo) é criado e agendado. 
-5.  [cite_start]**Loop de Simulação**: O programa entra em um loop que continua enquanto houver pacotes não entregues. 
-    * [cite_start]A cada iteração, o evento com a menor chave (o mais próximo no tempo) é removido do escalonador (`Heap`). 
-    * [cite_start]**Se o evento for de Armazenamento**: O sistema verifica se o pacote chegou ao seu destino final.  [cite_start]Se sim, o pacote é registrado como entregue.  [cite_start]Caso contrário, ele é armazenado na pilha (seção) correspondente ao próximo passo de sua rota. 
-    * **Se o evento for de Transporte**: Os pacotes elegíveis são movidos de um armazém para outro. [cite_start]Os pacotes armazenados há mais tempo são priorizados.  [cite_start]A chegada desses pacotes ao armazém de destino é então escalonada como um novo evento.  [cite_start]Um novo evento de transporte para a mesma rota é agendado para o futuro, com base no intervalo de transporte definido. 
-6.  [cite_start]**Fim da Simulação**: O loop termina quando todos os pacotes forem entregues.  [cite_start]As estatísticas finais são impressas no terminal. 
+3.  [cite_start]**Cálculo de Rota**: Para cada pacote, a rota mais curta é calculada com a função `calculateRoute()` (usando BFS) e armazenada dentro do próprio objeto do pacote. 
+4.  [cite_start]**Escalonamento Inicial**: A chegada de cada pacote ao seu primeiro armazém é escalonada como um evento.  [cite_start]Em seguida, a função `createTransports()` é chamada para escalonar o primeiro evento de transporte para cada aresta do grafo. 
+5.  [cite_start]**Loop de Simulação**: O sistema entra em um loop que continua enquanto o número de pacotes entregues for menor que o total. 
+    * [cite_start]A cada iteração, a função `executeEvent()` retira o próximo evento do escalonador. 
+    * [cite_start]**Evento de Armazenamento (Tipo 1)**: Se o pacote chegou ao destino final, uma mensagem é impressa e o contador de pacotes entregues é incrementado.  [cite_start]Caso contrário, o pacote é armazenado na seção correta do armazém atual usando a função `storePackage()`. 
+    * [cite_start]**Evento de Transporte (Tipo 2)**: A função `transportPackages()` é chamada.  [cite_start]Os pacotes que estão armazenados há mais tempo são desempilhados e a sua chegada no próximo armazém é escalonada.  [cite_start]Os pacotes restantes são reempilhados.  [cite_start]Por fim, o próximo transporte para essa mesma rota é escalonado, com o tempo incrementado de acordo com o intervalo definido. 
+6.  [cite_start]**Fim da Simulação**: O loop termina quando todos os pacotes são entregues, e as estatísticas finais são impressas. 
 
 ## 4. Tecnologias Utilizadas
 
-* [cite_start]**Linguagem**: C++ (compilado com G++) 
-* [cite_start]**Sistema Operacional para Desenvolvimento**: Linux (Ubuntu) 
-* [cite_start]**Versionamento**: Git e GitHub 
+* [cite_start]**Linguagem**: C++ 
+* [cite_start]**Compilador**: G++ (GNU Compiler Collection) 
+* [cite_start]**Sistema Operacional (Desenvolvimento)**: Linux (Ubuntu) 
 
 ## 5. Como Compilar e Executar
 
-Para compilar e executar o projeto, siga os passos abaixo:
+Para compilar e executar o projeto, siga as instruções abaixo.
 
-1.  [cite_start]Extraia o conteúdo do arquivo `.zip`. 
-2.  [cite_start]Adicione o arquivo de entrada (`.txt`) ao diretório extraído. 
-3.  Abra um terminal nesse diretório e execute o seguinte comando, substituindo `nome-arquivo-entrada.txt` pelo nome do seu arquivo de entrada:
+1.  Extraia o conteúdo do arquivo `.zip`.
+2.  Adicione um arquivo de texto com os dados de entrada ao diretório extraído.
+3.  [cite_start]No terminal, navegue até o diretório e execute o seguinte comando, substituindo `nome-arquivo-entrada.txt` pelo nome do seu arquivo: 
 
 ```bash
 make run FILE=nome-arquivo-entrada.txt
 ```
-[cite_start]Este comando irá compilar todos os arquivos-fonte, realizar a ligação e executar o programa, passando o arquivo de entrada especificado como parâmetro. 
+[cite_start]Este comando irá compilar todos os arquivos-fonte, realizar a ligação e executar o programa, utilizando o arquivo de entrada especificado. 
 
 ## 6. Análise e Robustez
 
-* [cite_start]**Análise de Complexidade**: Uma análise detalhada da complexidade de tempo e espaço para cada estrutura de dados e função principal foi realizada.  [cite_start]A análise experimental mostrou que o desempenho do sistema é mais sensível à **capacidade de transporte** (que impacta o número de eventos gerados) do que ao número de pacotes ou armazéns. 
-* [cite_start]**Estratégias de Robustez**: O programa implementa práticas de programação defensiva, como a verificação da existência de arquivos, validação de acesso a estruturas de dados e liberação adequada da memória alocada dinamicamente (verificada com `valgrind`).
+* [cite_start]**Análise de Complexidade**: Uma análise detalhada da complexidade de tempo e espaço para cada estrutura de dados e função principal foi realizada.  [cite_start]A análise experimental confirmou que a variável de maior impacto no tempo de execução é a **capacidade de transporte**, pois uma capacidade pequena aumenta drasticamente o número de eventos de inserção e remoção no `Heap`. 
+* [cite_start]**Estratégias de Robustez**: O sistema foi desenvolvido com práticas de programação defensiva para garantir a estabilidade. 
+    * [cite_start]Verificação da existência e sucesso na abertura de arquivos de entrada. 
+    * [cite_start]Validação de acesso a posições válidas em listas, pilhas e no heap para evitar acessos indevidos. 
+    * [cite_start]Uso de `default` em `switch-cases` para tratar casos inesperados. 
+    * [cite_start]Liberação de toda a memória alocada dinamicamente, verificada com o uso da ferramenta `valgrind`.
